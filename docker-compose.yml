@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  drug-intelligence-cloud:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+    volumes:
+      - ./backend/registry:/app/backend/registry

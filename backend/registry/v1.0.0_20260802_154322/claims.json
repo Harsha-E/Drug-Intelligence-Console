@@ -1,0 +1,13 @@
+{
+  "CLAIM_DDI_WARF_ASP_001": {
+    "claim_id": "CLAIM_DDI_WARF_ASP_001",
+    "subject": "RXNORM_11289",
+    "predicate": "INCREASED_RISK_WITH",
+    "object": "RXNORM_1191",
+    "effect": "PD_EFFECT_BLEEDING",
+    "strength": "HIGH",
+    "evidence": [
+      "EVD_FDA_WARFARIN_001"
+    ]
+  }
+}

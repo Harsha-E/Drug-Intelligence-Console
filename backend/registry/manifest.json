@@ -1,0 +1,14 @@
+{
+  "build_id": "a24e7906-537e-434a-a2e4-0bc31521bea3",
+  "build_hash": "2986edbfbb2afd47cdbf6e927b43f2b1171a7f0adb219e43e73cd4c43b90139e",
+  "build_timestamp": "2026-08-01T16:38:06.923624+00:00Z",
+  "compiler_version": "1.0",
+  "schema_version": "1.1",
+  "knowledge_version": "1.0",
+  "evidence_version": "1.0",
+  "rule_version": "pending_phase_4",
+  "statistics": {
+    "total_drugs": 8,
+    "total_evidence_objects": 3
+  }
+}

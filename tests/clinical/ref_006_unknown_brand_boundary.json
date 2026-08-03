@@ -1,0 +1,19 @@
+{
+  "test_id": "ref_006_unknown_brand_boundary",
+  "type": "clinical_regression",
+  "description": "Boundary test: Assesses if the engine can resolve a non-canonical alias (e.g., 'Coumadin') to its underlying drug knowledge ('drg_warfarin') before evaluating rules.",
+  "input": {
+    "patient_id": "pt_006",
+    "allergies": [],
+    "medications": [
+      { "raw_string": "Coumadin 5mg", "status": "active" },
+      { "raw_string": "Advil 200mg", "status": "active" }
+    ]
+  },
+  "expected_output": {
+    "triggered_rules": ["bleeding_risk_interaction"],
+    "highest_severity": "CRITICAL",
+    "flags_count": 1,
+    "note": "The engine must map 'Coumadin' to drg_warfarin and 'Advil' to drg_ibuprofen, thereby triggering the bleeding risk rule."
+  }
+}

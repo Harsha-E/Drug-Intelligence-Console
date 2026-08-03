@@ -1,0 +1,5 @@
+term_id: PD_EFFECT_BLEEDING
+label: Increased Bleeding Risk
+category: pharmacodynamic_effect
+status: active
+version: 1.0

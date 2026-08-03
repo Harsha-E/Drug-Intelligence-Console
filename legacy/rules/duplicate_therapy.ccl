@@ -1,0 +1,30 @@
+rule: duplicate_therapy
+version: 1.0
+priority: HIGH
+description: Detects concurrent use of multiple drugs from the same therapeutic class
+
+conditions:
+  - match:
+      context: Patient.medications
+      as: med1
+  - match:
+      context: Patient.medications
+      as: med2
+      where: med1.drug_id != med2.drug_id
+
+  - evaluate:
+      operator: INTERSECT
+      left: med1.clinical_knowledge.classifications
+      right: med2.clinical_knowledge.classifications
+      as: overlapping_classes
+
+  - check:
+      operator: NOT_EMPTY
+      target: overlapping_classes
+
+actions:
+  - trigger:
+      type: WARNING
+      message: "Duplicate therapy detected: Both {med1.identity.canonical_name} and {med2.identity.canonical_name} belong to class(es): {overlapping_classes}"
+      severity: HIGH
+      tags: [duplicate_therapy]

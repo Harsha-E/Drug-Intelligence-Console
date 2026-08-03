@@ -1,0 +1,27 @@
+rule: bleeding_risk_interaction
+version: 1.0
+priority: CRITICAL
+description: Flags combination of two or more drugs that increase bleeding risk
+
+conditions:
+  - match:
+      context: Patient.medications
+      as: med1
+      where:
+        - '"PD_EFFECT_BLEEDING" IN med1.clinical_knowledge.clinical_characteristics'
+        - 'med1.clinical_knowledge.pharmacodynamic_effects contains {effect: "PD_EFFECT_BLEEDING", direction: "INCREASE"}'
+  
+  - match:
+      context: Patient.medications
+      as: med2
+      where:
+        - 'med1.drug_id != med2.drug_id'
+        - '"PD_EFFECT_BLEEDING" IN med2.clinical_knowledge.clinical_characteristics'
+        - 'med2.clinical_knowledge.pharmacodynamic_effects contains {effect: "PD_EFFECT_BLEEDING", direction: "INCREASE"}'
+
+actions:
+  - trigger:
+      type: CONTRAINDICATION
+      message: "High Bleeding Risk: Concurrent use of {med1.identity.canonical_name} and {med2.identity.canonical_name} significantly increases the risk of hemorrhage."
+      severity: CRITICAL
+      tags: [bleeding_risk, pharmacodynamic_interaction]

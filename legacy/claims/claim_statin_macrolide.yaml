@@ -1,0 +1,6 @@
+claim_id: claim_statin_macrolide
+subject: RXNORM_36567
+predicate: INCREASED_RISK_WITH
+object: RXNORM_18631
+effect: PD_EFFECT_MYOPATHY
+strength: HIGH

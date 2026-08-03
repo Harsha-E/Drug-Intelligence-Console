@@ -1,0 +1,48 @@
+{
+  "entity_type": "DrugKnowledge",
+  "drug_id": "drg_paracetamol",
+  "identity": {
+    "canonical_name": "paracetamol",
+    "aliases": ["acetaminophen", "Tylenol", "Panadol"],
+    "codes": {
+      "rxnorm": "161",
+      "atc": "N02BE01"
+    }
+  },
+  "ingredients": [
+    {
+      "ingredient_id": "ing_paracetamol",
+      "name": "paracetamol",
+      "role": "active",
+      "allergen_class": "acetaminophen"
+    }
+  ],
+  "clinical_knowledge": {
+    "classifications": ["Analgesic", "Antipyretic"],
+    "clinical_characteristics": ["hepatic_metabolism"],
+    "pharmacodynamic_effects": [],
+    "contraindications": [
+      {
+        "category": "condition",
+        "trigger": "severe_hepatic_impairment",
+        "severity": "ABSOLUTE",
+        "evidence_refs": []
+      }
+    ]
+  },
+  "relationships": [
+    {
+      "type": "belongs_to_class",
+      "target": "Analgesic"
+    }
+  ],
+  "evidence_refs": [],
+  "metadata": {
+    "knowledge_version": "1.0",
+    "schema_version": "1.1",
+    "created": "2026-08-01",
+    "modified": "2026-08-01",
+    "review_cycle": "annual",
+    "reviewed_by": "System"
+  }
+}

@@ -1,0 +1,6 @@
+claim_id: claim_ssri_nsaid
+subject: RXNORM_4493
+predicate: INCREASED_RISK_WITH
+object: RXNORM_7258
+effect: PD_EFFECT_BLEEDING
+strength: MODERATE

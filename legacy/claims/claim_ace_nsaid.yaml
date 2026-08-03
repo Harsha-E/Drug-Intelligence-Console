@@ -1,0 +1,6 @@
+claim_id: claim_ace_nsaid
+subject: RXNORM_29046
+predicate: INCREASED_RISK_WITH
+object: RXNORM_7258
+effect: PD_EFFECT_RENAL_IMPAIRMENT
+strength: MODERATE

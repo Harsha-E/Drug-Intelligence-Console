@@ -1,0 +1,56 @@
+{
+  "EVD_FDA_APIXABAN_001": {
+    "evidence_id": "EVD_FDA_APIXABAN_001",
+    "publisher": "FDA",
+    "source_type": "package_insert",
+    "title": "Apixaban tablets",
+    "year": 2023,
+    "strength": "HIGH",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=Apixaban"
+  },
+  "EVD_FDA_CLOPIDOGREL_001": {
+    "evidence_id": "EVD_FDA_CLOPIDOGREL_001",
+    "publisher": "FDA",
+    "source_type": "package_insert",
+    "title": "Clopidogrel tablets",
+    "year": 2023,
+    "strength": "HIGH",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=Clopidogrel"
+  },
+  "EVD_FDA_IBUPROFEN_001": {
+    "evidence_id": "EVD_FDA_IBUPROFEN_001",
+    "publisher": "FDA",
+    "source_type": "package_insert",
+    "title": "Ibuprofen tablets",
+    "year": 2023,
+    "strength": "HIGH",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=Ibuprofen"
+  },
+  "EVD_FDA_METOPROLOL_001": {
+    "evidence_id": "EVD_FDA_METOPROLOL_001",
+    "publisher": "FDA",
+    "source_type": "package_insert",
+    "title": "Metoprolol tablets",
+    "year": 2023,
+    "strength": "HIGH",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=Metoprolol"
+  },
+  "EVD_FDA_SERTRALINE_001": {
+    "evidence_id": "EVD_FDA_SERTRALINE_001",
+    "publisher": "FDA",
+    "source_type": "package_insert",
+    "title": "Sertraline tablets",
+    "year": 2023,
+    "strength": "HIGH",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query=Sertraline"
+  },
+  "EVD_FDA_WARFARIN_001": {
+    "evidence_id": "EVD_FDA_WARFARIN_001",
+    "publisher": "FDA",
+    "source_type": "package_insert",
+    "title": "Coumadin (warfarin sodium) tablets",
+    "year": 2021,
+    "strength": "HIGH",
+    "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2021/009218s108lbl.pdf"
+  }
+}

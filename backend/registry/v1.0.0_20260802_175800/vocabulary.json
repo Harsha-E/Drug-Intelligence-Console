@@ -1,0 +1,256 @@
+{
+  "RXNORM_435": {
+    "term_id": "RXNORM_435",
+    "label": "Albuterol",
+    "type": "small_molecule",
+    "aliases": [
+      "Albuterol"
+    ]
+  },
+  "RXNORM_723": {
+    "term_id": "RXNORM_723",
+    "label": "Amoxicillin",
+    "type": "small_molecule",
+    "aliases": [
+      "Amoxicillin"
+    ]
+  },
+  "RXNORM_1364430": {
+    "term_id": "RXNORM_1364430",
+    "label": "Apixaban",
+    "category": "drug",
+    "status": "active",
+    "version": "1.0"
+  },
+  "RXNORM_1191": {
+    "term_id": "RXNORM_1191",
+    "label": "Aspirin",
+    "category": "drug",
+    "status": "active",
+    "version": 1.0
+  },
+  "RXNORM_83367": {
+    "term_id": "RXNORM_83367",
+    "label": "Atorvastatin",
+    "type": "small_molecule",
+    "aliases": [
+      "Atorvastatin"
+    ]
+  },
+  "RXNORM_18631": {
+    "term_id": "RXNORM_18631",
+    "label": "Azithromycin",
+    "type": "small_molecule",
+    "aliases": [
+      "Azithromycin"
+    ]
+  },
+  "RXNORM_140587": {
+    "term_id": "RXNORM_140587",
+    "label": "Celecoxib",
+    "type": "small_molecule",
+    "aliases": [
+      "Celecoxib"
+    ]
+  },
+  "RXNORM_2556": {
+    "term_id": "RXNORM_2556",
+    "label": "Citalopram",
+    "type": "small_molecule",
+    "aliases": [
+      "Citalopram"
+    ]
+  },
+  "RXNORM_32968": {
+    "term_id": "RXNORM_32968",
+    "label": "Clopidogrel",
+    "category": "drug",
+    "status": "active",
+    "version": "1.0"
+  },
+  "RXNORM_1002324": {
+    "term_id": "RXNORM_1002324",
+    "label": "Dabigatran",
+    "type": "small_molecule",
+    "aliases": [
+      "Dabigatran"
+    ]
+  },
+  "RXNORM_4493": {
+    "term_id": "RXNORM_4493",
+    "label": "Fluoxetine",
+    "type": "small_molecule",
+    "aliases": [
+      "Fluoxetine"
+    ]
+  },
+  "RXNORM_4174": {
+    "term_id": "RXNORM_4174",
+    "label": "Fluticasone",
+    "type": "small_molecule",
+    "aliases": [
+      "Fluticasone"
+    ]
+  },
+  "RXNORM_4815": {
+    "term_id": "RXNORM_4815",
+    "label": "Glipizide",
+    "type": "small_molecule",
+    "aliases": [
+      "Glipizide"
+    ]
+  },
+  "RXNORM_5640": {
+    "term_id": "RXNORM_5640",
+    "label": "Ibuprofen",
+    "category": "drug",
+    "status": "active",
+    "version": "1.0"
+  },
+  "RXNORM_6135": {
+    "term_id": "RXNORM_6135",
+    "label": "Levetiracetam",
+    "type": "small_molecule",
+    "aliases": [
+      "Levetiracetam"
+    ]
+  },
+  "RXNORM_29046": {
+    "term_id": "RXNORM_29046",
+    "label": "Lisinopril",
+    "type": "small_molecule",
+    "aliases": [
+      "Lisinopril"
+    ]
+  },
+  "RXNORM_52175": {
+    "term_id": "RXNORM_52175",
+    "label": "Losartan",
+    "type": "small_molecule",
+    "aliases": [
+      "Losartan"
+    ]
+  },
+  "RXNORM_6809": {
+    "term_id": "RXNORM_6809",
+    "label": "Metformin",
+    "type": "small_molecule",
+    "aliases": [
+      "Metformin"
+    ]
+  },
+  "RXNORM_6918": {
+    "term_id": "RXNORM_6918",
+    "label": "Metoprolol",
+    "category": "drug",
+    "status": "active",
+    "version": "1.0"
+  },
+  "RXNORM_7258": {
+    "term_id": "RXNORM_7258",
+    "label": "Naproxen",
+    "type": "small_molecule",
+    "aliases": [
+      "Naproxen"
+    ]
+  },
+  "RXNORM_8163": {
+    "term_id": "RXNORM_8163",
+    "label": "Phenytoin",
+    "type": "small_molecule",
+    "aliases": [
+      "Phenytoin"
+    ]
+  },
+  "RXNORM_35208": {
+    "term_id": "RXNORM_35208",
+    "label": "Ramipril",
+    "type": "small_molecule",
+    "aliases": [
+      "Ramipril"
+    ]
+  },
+  "RXNORM_1114095": {
+    "term_id": "RXNORM_1114095",
+    "label": "Rivaroxaban",
+    "type": "small_molecule",
+    "aliases": [
+      "Rivaroxaban"
+    ]
+  },
+  "RXNORM_36437": {
+    "term_id": "RXNORM_36437",
+    "label": "Sertraline",
+    "category": "drug",
+    "status": "active",
+    "version": "1.0"
+  },
+  "RXNORM_36567": {
+    "term_id": "RXNORM_36567",
+    "label": "Simvastatin",
+    "type": "small_molecule",
+    "aliases": [
+      "Simvastatin"
+    ]
+  },
+  "RXNORM_69749": {
+    "term_id": "RXNORM_69749",
+    "label": "Valsartan",
+    "type": "small_molecule",
+    "aliases": [
+      "Valsartan"
+    ]
+  },
+  "RXNORM_11289": {
+    "term_id": "RXNORM_11289",
+    "label": "Warfarin",
+    "category": "drug",
+    "status": "active",
+    "version": 1.0
+  },
+  "PD_EFFECT_BLEEDING": {
+    "term_id": "PD_EFFECT_BLEEDING",
+    "label": "Increased Bleeding Risk",
+    "category": "pharmacodynamic_effect",
+    "status": "active",
+    "version": 1.0
+  },
+  "PD_EFFECT_MYOPATHY": {
+    "term_id": "PD_EFFECT_MYOPATHY",
+    "label": "Myopathy",
+    "category": "effect"
+  },
+  "PD_EFFECT_RENAL_IMPAIRMENT": {
+    "term_id": "PD_EFFECT_RENAL_IMPAIRMENT",
+    "label": "Renal Impairment",
+    "category": "effect"
+  },
+  "ENZ_CYP2C9": {
+    "term_id": "ENZ_CYP2C9",
+    "label": "Cytochrome P450 2C9",
+    "category": "enzyme",
+    "status": "active",
+    "version": 1.0
+  },
+  "PD_EFFECT_UNKNOWN": {
+    "term_id": "PD_EFFECT_UNKNOWN",
+    "label": "Unknown Effect",
+    "category": "pharmacodynamics",
+    "status": "active",
+    "version": 1.0
+  },
+  "CLASS_ANTICOAGULANT": {
+    "term_id": "CLASS_ANTICOAGULANT",
+    "label": "Anticoagulant",
+    "category": "therapeutic_class",
+    "status": "active",
+    "version": 1.0
+  },
+  "CLASS_NSAID": {
+    "term_id": "CLASS_NSAID",
+    "label": "Nonsteroidal Anti-inflammatory Drug",
+    "category": "therapeutic_class",
+    "status": "active",
+    "version": 1.0
+  }
+}

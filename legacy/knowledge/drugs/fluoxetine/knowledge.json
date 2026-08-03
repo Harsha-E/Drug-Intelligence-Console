@@ -1,0 +1,56 @@
+{
+  "entity_type": "DrugKnowledge",
+  "drug_id": "drg_fluoxetine",
+  "identity": {
+    "canonical_name": "fluoxetine",
+    "aliases": ["Prozac"],
+    "codes": {
+      "rxnorm": "4493",
+      "atc": "N06AB03"
+    }
+  },
+  "ingredients": [
+    {
+      "ingredient_id": "ing_fluoxetine_hcl",
+      "name": "fluoxetine hydrochloride",
+      "role": "active",
+      "allergen_class": null
+    }
+  ],
+  "clinical_knowledge": {
+    "classifications": ["Antidepressant", "SSRI"],
+    "clinical_characteristics": ["serotonergic", "long_half_life"],
+    "pharmacodynamic_effects": [
+      {
+        "effect": "serotonin_levels",
+        "direction": "INCREASE",
+        "magnitude": "HIGH",
+        "mechanism": "Inhibits CNS neuronal uptake of serotonin (5-HT)",
+        "clinical_significance": "Risk of serotonin syndrome with other serotonergic agents."
+      }
+    ],
+    "contraindications": [
+      {
+        "category": "concurrent_drug",
+        "trigger": "MAOI",
+        "severity": "ABSOLUTE",
+        "evidence_refs": ["ev_apa_ssri_2025"]
+      }
+    ]
+  },
+  "relationships": [
+    {
+      "type": "belongs_to_class",
+      "target": "SSRI"
+    }
+  ],
+  "evidence_refs": ["ev_apa_ssri_2025"],
+  "metadata": {
+    "knowledge_version": "1.0",
+    "schema_version": "1.1",
+    "created": "2026-08-01",
+    "modified": "2026-08-01",
+    "review_cycle": "annual",
+    "reviewed_by": "System"
+  }
+}

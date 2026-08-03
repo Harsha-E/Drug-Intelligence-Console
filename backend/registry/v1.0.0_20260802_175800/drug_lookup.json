@@ -1,0 +1,300 @@
+{
+  "drg_amoxicillin": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_amoxicillin",
+    "identity": {
+      "canonical_name": "amoxicillin",
+      "aliases": [
+        "Amoxil"
+      ],
+      "codes": {
+        "rxnorm": "723",
+        "atc": "J01CA04"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_amoxicillin",
+        "name": "amoxicillin",
+        "role": "active",
+        "allergen_class": "penicillin"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Antibiotic",
+        "Beta-lactam",
+        "Penicillin"
+      ],
+      "clinical_characteristics": [
+        "bactericidal"
+      ],
+      "pharmacodynamic_effects": [],
+      "contraindications": [
+        {
+          "category": "allergy",
+          "trigger": "penicillin",
+          "severity": "ABSOLUTE",
+          "evidence_refs": [
+            "ev_penicillin_class_allergy"
+          ]
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "Penicillin"
+      },
+      {
+        "type": "cross_reacts_with",
+        "target": "Penicillin"
+      },
+      {
+        "type": "cross_reacts_with",
+        "target": "Cephalosporin"
+      }
+    ],
+    "evidence_refs": [
+      "ev_penicillin_class_allergy"
+    ],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "RXNORM_1364430": {
+    "drug_id": "RXNORM_1364430",
+    "name": "Apixaban",
+    "classes": [
+      "CLASS_PLACEHOLDER"
+    ]
+  },
+  "RXNORM_1191": {
+    "drug_id": "RXNORM_1191",
+    "name": "Aspirin",
+    "classes": [
+      "CLASS_NSAID"
+    ]
+  },
+  "drg_cetirizine": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_cetirizine",
+    "identity": {
+      "canonical_name": "cetirizine",
+      "aliases": [
+        "Zyrtec"
+      ],
+      "codes": {
+        "rxnorm": "20610",
+        "atc": "R06AE07"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_cetirizine",
+        "name": "cetirizine hydrochloride",
+        "role": "active",
+        "allergen_class": null
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Antihistamine",
+        "H1 antagonist"
+      ],
+      "clinical_characteristics": [
+        "mild_sedation"
+      ],
+      "pharmacodynamic_effects": [
+        {
+          "effect": "cns_depression",
+          "direction": "INCREASE",
+          "magnitude": "LOW",
+          "mechanism": "Second-generation H1 receptor antagonist with low CNS penetration",
+          "clinical_significance": "Mild sedation possible, especially with concurrent CNS depressants."
+        }
+      ],
+      "contraindications": []
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "Antihistamine"
+      }
+    ],
+    "evidence_refs": [],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "RXNORM_32968": {
+    "drug_id": "RXNORM_32968",
+    "name": "Clopidogrel",
+    "classes": [
+      "CLASS_PLACEHOLDER"
+    ]
+  },
+  "drg_fluoxetine": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_fluoxetine",
+    "identity": {
+      "canonical_name": "fluoxetine",
+      "aliases": [
+        "Prozac"
+      ],
+      "codes": {
+        "rxnorm": "4493",
+        "atc": "N06AB03"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_fluoxetine_hcl",
+        "name": "fluoxetine hydrochloride",
+        "role": "active",
+        "allergen_class": null
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Antidepressant",
+        "SSRI"
+      ],
+      "clinical_characteristics": [
+        "serotonergic",
+        "long_half_life"
+      ],
+      "pharmacodynamic_effects": [
+        {
+          "effect": "serotonin_levels",
+          "direction": "INCREASE",
+          "magnitude": "HIGH",
+          "mechanism": "Inhibits CNS neuronal uptake of serotonin (5-HT)",
+          "clinical_significance": "Risk of serotonin syndrome with other serotonergic agents."
+        }
+      ],
+      "contraindications": [
+        {
+          "category": "concurrent_drug",
+          "trigger": "MAOI",
+          "severity": "ABSOLUTE",
+          "evidence_refs": [
+            "ev_apa_ssri_2025"
+          ]
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "SSRI"
+      }
+    ],
+    "evidence_refs": [
+      "ev_apa_ssri_2025"
+    ],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "RXNORM_5640": {
+    "drug_id": "RXNORM_5640",
+    "name": "Ibuprofen",
+    "classes": [
+      "CLASS_PLACEHOLDER"
+    ]
+  },
+  "RXNORM_6918": {
+    "drug_id": "RXNORM_6918",
+    "name": "Metoprolol",
+    "classes": [
+      "CLASS_PLACEHOLDER"
+    ]
+  },
+  "drg_paracetamol": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_paracetamol",
+    "identity": {
+      "canonical_name": "paracetamol",
+      "aliases": [
+        "acetaminophen",
+        "Tylenol",
+        "Panadol"
+      ],
+      "codes": {
+        "rxnorm": "161",
+        "atc": "N02BE01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_paracetamol",
+        "name": "paracetamol",
+        "role": "active",
+        "allergen_class": "acetaminophen"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Analgesic",
+        "Antipyretic"
+      ],
+      "clinical_characteristics": [
+        "hepatic_metabolism"
+      ],
+      "pharmacodynamic_effects": [],
+      "contraindications": [
+        {
+          "category": "condition",
+          "trigger": "severe_hepatic_impairment",
+          "severity": "ABSOLUTE",
+          "evidence_refs": []
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "Analgesic"
+      }
+    ],
+    "evidence_refs": [],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "RXNORM_36437": {
+    "drug_id": "RXNORM_36437",
+    "name": "Sertraline",
+    "classes": [
+      "CLASS_PLACEHOLDER"
+    ]
+  },
+  "RXNORM_11289": {
+    "drug_id": "RXNORM_11289",
+    "name": "Warfarin",
+    "classes": [
+      "CLASS_ANTICOAGULANT"
+    ]
+  }
+}

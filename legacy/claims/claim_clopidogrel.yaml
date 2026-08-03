@@ -1,0 +1,7 @@
+claim_id: CLAIM_CLOPIDOGREL_001
+subject: RXNORM_32968
+predicate: HAS_EFFECT
+object: PD_EFFECT_UNKNOWN
+strength: HIGH
+evidence:
+- EVD_FDA_CLOPIDOGREL_001

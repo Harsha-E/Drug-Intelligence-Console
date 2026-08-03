@@ -1,0 +1,9 @@
+{
+  "CRITICAL": [
+    "allergy_contraindication",
+    "bleeding_risk_interaction"
+  ],
+  "HIGH": [
+    "duplicate_therapy"
+  ]
+}

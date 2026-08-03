@@ -1,0 +1,18 @@
+{
+  "test_id": "ref_002_duplicate_positive",
+  "type": "clinical_regression",
+  "description": "Tests that two SSRIs (Sertraline + Fluoxetine) trigger the duplicate therapy rule.",
+  "input": {
+    "patient_id": "pt_002",
+    "allergies": [],
+    "medications": [
+      { "drug_id": "drg_sertraline", "status": "active" },
+      { "drug_id": "drg_fluoxetine", "status": "active" }
+    ]
+  },
+  "expected_output": {
+    "triggered_rules": ["duplicate_therapy"],
+    "highest_severity": "HIGH",
+    "flags_count": 1
+  }
+}

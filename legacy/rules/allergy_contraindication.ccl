@@ -1,0 +1,35 @@
+rule: allergy_contraindication
+version: 1.0
+priority: CRITICAL
+description: Prevents administration of drugs when the patient has a documented allergy to the drug's allergen class or a cross-reactive class
+
+conditions:
+  - match:
+      context: Patient.allergies
+      as: allergy
+
+  - match:
+      context: Patient.medications
+      as: med
+
+  - evaluate:
+      operator: EXTRACT
+      target: med.ingredients[*].allergen_class
+      as: drug_allergens
+      
+  - evaluate:
+      operator: EXTRACT
+      target: med.relationships[type="cross_reacts_with"].target
+      as: cross_reactive_allergens
+
+  - check:
+      operator: ANY_IN
+      left: allergy.allergen_class
+      right: UNION(drug_allergens, cross_reactive_allergens)
+
+actions:
+  - trigger:
+      type: CONTRAINDICATION
+      message: "Absolute Contraindication: Patient has a documented allergy to {allergy.allergen_class}, which conflicts with {med.identity.canonical_name}."
+      severity: CRITICAL
+      tags: [allergy, absolute_contraindication]

@@ -1,0 +1,87 @@
+{
+  "CLAIM_DDI_WARF_ASP_001": {
+    "claim_id": "CLAIM_DDI_WARF_ASP_001",
+    "subject": "RXNORM_11289",
+    "predicate": "INCREASED_RISK_WITH",
+    "object": "RXNORM_1191",
+    "effect": "PD_EFFECT_BLEEDING",
+    "strength": "HIGH",
+    "evidence": [
+      "EVD_FDA_WARFARIN_001"
+    ]
+  },
+  "claim_ace_nsaid": {
+    "claim_id": "claim_ace_nsaid",
+    "subject": "RXNORM_29046",
+    "predicate": "INCREASED_RISK_WITH",
+    "object": "RXNORM_7258",
+    "effect": "PD_EFFECT_RENAL_IMPAIRMENT",
+    "strength": "MODERATE"
+  },
+  "CLAIM_APIXABAN_001": {
+    "claim_id": "CLAIM_APIXABAN_001",
+    "subject": "RXNORM_1364430",
+    "predicate": "HAS_EFFECT",
+    "object": "PD_EFFECT_UNKNOWN",
+    "strength": "HIGH",
+    "evidence": [
+      "EVD_FDA_APIXABAN_001"
+    ]
+  },
+  "CLAIM_CLOPIDOGREL_001": {
+    "claim_id": "CLAIM_CLOPIDOGREL_001",
+    "subject": "RXNORM_32968",
+    "predicate": "HAS_EFFECT",
+    "object": "PD_EFFECT_UNKNOWN",
+    "strength": "HIGH",
+    "evidence": [
+      "EVD_FDA_CLOPIDOGREL_001"
+    ]
+  },
+  "CLAIM_IBUPROFEN_001": {
+    "claim_id": "CLAIM_IBUPROFEN_001",
+    "subject": "RXNORM_5640",
+    "predicate": "HAS_EFFECT",
+    "object": "PD_EFFECT_UNKNOWN",
+    "strength": "HIGH",
+    "evidence": [
+      "EVD_FDA_IBUPROFEN_001"
+    ]
+  },
+  "CLAIM_METOPROLOL_001": {
+    "claim_id": "CLAIM_METOPROLOL_001",
+    "subject": "RXNORM_6918",
+    "predicate": "HAS_EFFECT",
+    "object": "PD_EFFECT_UNKNOWN",
+    "strength": "HIGH",
+    "evidence": [
+      "EVD_FDA_METOPROLOL_001"
+    ]
+  },
+  "CLAIM_SERTRALINE_001": {
+    "claim_id": "CLAIM_SERTRALINE_001",
+    "subject": "RXNORM_36437",
+    "predicate": "HAS_EFFECT",
+    "object": "PD_EFFECT_UNKNOWN",
+    "strength": "HIGH",
+    "evidence": [
+      "EVD_FDA_SERTRALINE_001"
+    ]
+  },
+  "claim_ssri_nsaid": {
+    "claim_id": "claim_ssri_nsaid",
+    "subject": "RXNORM_4493",
+    "predicate": "INCREASED_RISK_WITH",
+    "object": "RXNORM_7258",
+    "effect": "PD_EFFECT_BLEEDING",
+    "strength": "MODERATE"
+  },
+  "claim_statin_macrolide": {
+    "claim_id": "claim_statin_macrolide",
+    "subject": "RXNORM_36567",
+    "predicate": "INCREASED_RISK_WITH",
+    "object": "RXNORM_18631",
+    "effect": "PD_EFFECT_MYOPATHY",
+    "strength": "HIGH"
+  }
+}

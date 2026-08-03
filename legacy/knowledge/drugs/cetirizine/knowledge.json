@@ -1,0 +1,49 @@
+{
+  "entity_type": "DrugKnowledge",
+  "drug_id": "drg_cetirizine",
+  "identity": {
+    "canonical_name": "cetirizine",
+    "aliases": ["Zyrtec"],
+    "codes": {
+      "rxnorm": "20610",
+      "atc": "R06AE07"
+    }
+  },
+  "ingredients": [
+    {
+      "ingredient_id": "ing_cetirizine",
+      "name": "cetirizine hydrochloride",
+      "role": "active",
+      "allergen_class": null
+    }
+  ],
+  "clinical_knowledge": {
+    "classifications": ["Antihistamine", "H1 antagonist"],
+    "clinical_characteristics": ["mild_sedation"],
+    "pharmacodynamic_effects": [
+      {
+        "effect": "cns_depression",
+        "direction": "INCREASE",
+        "magnitude": "LOW",
+        "mechanism": "Second-generation H1 receptor antagonist with low CNS penetration",
+        "clinical_significance": "Mild sedation possible, especially with concurrent CNS depressants."
+      }
+    ],
+    "contraindications": []
+  },
+  "relationships": [
+    {
+      "type": "belongs_to_class",
+      "target": "Antihistamine"
+    }
+  ],
+  "evidence_refs": [],
+  "metadata": {
+    "knowledge_version": "1.0",
+    "schema_version": "1.1",
+    "created": "2026-08-01",
+    "modified": "2026-08-01",
+    "review_cycle": "annual",
+    "reviewed_by": "System"
+  }
+}

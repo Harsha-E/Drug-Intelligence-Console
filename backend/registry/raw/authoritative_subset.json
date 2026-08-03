@@ -1,0 +1,239 @@
+[
+  {
+    "drug_id": "drg_warfarin",
+    "identity": {
+      "canonical_name": "warfarin",
+      "codes": {"rxnorm": "11289", "atc": "B01AA03"}
+    },
+    "ingredients": [
+      {"ingredient_id": "ing_warfarin", "name": "warfarin", "role": "active"}
+    ],
+    "clinical_knowledge": {
+      "classifications": ["Anticoagulant", "Vitamin K Antagonist"]
+    },
+    "claims": [
+      {
+        "claim_id": "CLM_WARF_01",
+        "subject": "ing_warfarin",
+        "predicate": "INHIBITS_ENZYME",
+        "object": "VKORC1",
+        "evidence_refs": ["EVD_FDA_WARF_01"]
+      },
+      {
+        "claim_id": "CLM_WARF_02",
+        "subject": "ing_warfarin",
+        "predicate": "METABOLIZED_BY",
+        "object": "CYP2C9",
+        "evidence_refs": ["EVD_FDA_WARF_01"]
+      },
+      {
+        "claim_id": "CLM_WARF_03",
+        "subject": "ing_warfarin",
+        "predicate": "HAS_EFFECT",
+        "object": "PD_EFFECT_BLEEDING",
+        "strength": "HIGH",
+        "evidence_refs": ["EVD_FDA_WARF_01"]
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVD_FDA_WARF_01",
+        "source": "OpenFDA",
+        "publication": "FDA Label - Warfarin Sodium",
+        "confidence": "HIGH"
+      }
+    ]
+  },
+  {
+    "drug_id": "drg_fluconazole",
+    "identity": {
+      "canonical_name": "fluconazole",
+      "codes": {"rxnorm": "4450", "atc": "J02AC01"}
+    },
+    "ingredients": [
+      {"ingredient_id": "ing_fluconazole", "name": "fluconazole", "role": "active"}
+    ],
+    "clinical_knowledge": {
+      "classifications": ["Antifungal", "Azole"]
+    },
+    "claims": [
+      {
+        "claim_id": "CLM_FLUC_01",
+        "subject": "ing_fluconazole",
+        "predicate": "INHIBITS_ENZYME",
+        "object": "CYP2C9",
+        "evidence_refs": ["EVD_FDA_FLUC_01"]
+      },
+      {
+        "claim_id": "CLM_FLUC_02",
+        "subject": "ing_fluconazole",
+        "predicate": "HAS_EFFECT",
+        "object": "PD_EFFECT_QT_PROLONGATION",
+        "strength": "MODERATE",
+        "evidence_refs": ["EVD_FDA_FLUC_01"]
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVD_FDA_FLUC_01",
+        "source": "OpenFDA",
+        "publication": "FDA Label - Diflucan",
+        "confidence": "HIGH"
+      }
+    ]
+  },
+  {
+    "drug_id": "drg_aspirin",
+    "identity": {
+      "canonical_name": "aspirin",
+      "codes": {"rxnorm": "1191", "atc": "B01AC06"}
+    },
+    "ingredients": [
+      {"ingredient_id": "ing_aspirin", "name": "aspirin", "role": "active"}
+    ],
+    "clinical_knowledge": {
+      "classifications": ["Antiplatelet", "NSAID"]
+    },
+    "claims": [
+      {
+        "claim_id": "CLM_ASP_01",
+        "subject": "ing_aspirin",
+        "predicate": "INHIBITS_ENZYME",
+        "object": "COX1",
+        "evidence_refs": ["EVD_FDA_ASP_01"]
+      },
+      {
+        "claim_id": "CLM_ASP_02",
+        "subject": "ing_aspirin",
+        "predicate": "HAS_EFFECT",
+        "object": "PD_EFFECT_BLEEDING",
+        "strength": "HIGH",
+        "evidence_refs": ["EVD_FDA_ASP_01"]
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVD_FDA_ASP_01",
+        "source": "OpenFDA",
+        "publication": "FDA Label - Aspirin",
+        "confidence": "HIGH"
+      }
+    ]
+  },
+  {
+    "drug_id": "drg_ibuprofen",
+    "identity": {
+      "canonical_name": "ibuprofen",
+      "codes": {"rxnorm": "5640", "atc": "M01AE01"}
+    },
+    "ingredients": [
+      {"ingredient_id": "ing_ibuprofen", "name": "ibuprofen", "role": "active"}
+    ],
+    "clinical_knowledge": {
+      "classifications": ["NSAID"]
+    },
+    "claims": [
+      {
+        "claim_id": "CLM_IBU_01",
+        "subject": "ing_ibuprofen",
+        "predicate": "HAS_EFFECT",
+        "object": "PD_EFFECT_BLEEDING",
+        "strength": "MODERATE",
+        "evidence_refs": ["EVD_FDA_IBU_01"]
+      },
+      {
+        "claim_id": "CLM_IBU_02",
+        "subject": "ing_ibuprofen",
+        "predicate": "HAS_EFFECT",
+        "object": "PD_EFFECT_RENAL_IMPAIRMENT",
+        "strength": "MODERATE",
+        "evidence_refs": ["EVD_FDA_IBU_01"]
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVD_FDA_IBU_01",
+        "source": "OpenFDA",
+        "publication": "FDA Label - Advil",
+        "confidence": "HIGH"
+      }
+    ]
+  },
+  {
+    "drug_id": "drg_lisinopril",
+    "identity": {
+      "canonical_name": "lisinopril",
+      "codes": {"rxnorm": "29046", "atc": "C09AA03"}
+    },
+    "ingredients": [
+      {"ingredient_id": "ing_lisinopril", "name": "lisinopril", "role": "active"}
+    ],
+    "clinical_knowledge": {
+      "classifications": ["ACE Inhibitor"]
+    },
+    "claims": [
+      {
+        "claim_id": "CLM_LIS_01",
+        "subject": "ing_lisinopril",
+        "predicate": "HAS_EFFECT",
+        "object": "PD_EFFECT_RENAL_IMPAIRMENT",
+        "strength": "MODERATE",
+        "evidence_refs": ["EVD_FDA_LIS_01"]
+      },
+      {
+        "claim_id": "CLM_LIS_02",
+        "subject": "ing_lisinopril",
+        "predicate": "HAS_EFFECT",
+        "object": "PD_EFFECT_HYPERKALEMIA",
+        "strength": "HIGH",
+        "evidence_refs": ["EVD_FDA_LIS_01"]
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVD_FDA_LIS_01",
+        "source": "OpenFDA",
+        "publication": "FDA Label - Zestril",
+        "confidence": "HIGH"
+      }
+    ]
+  },
+  {
+    "drug_id": "drg_amiodarone",
+    "identity": {
+      "canonical_name": "amiodarone",
+      "codes": {"rxnorm": "703", "atc": "C01BD01"}
+    },
+    "ingredients": [
+      {"ingredient_id": "ing_amiodarone", "name": "amiodarone", "role": "active"}
+    ],
+    "clinical_knowledge": {
+      "classifications": ["Antiarrhythmic"]
+    },
+    "claims": [
+      {
+        "claim_id": "CLM_AMIO_01",
+        "subject": "ing_amiodarone",
+        "predicate": "INHIBITS_ENZYME",
+        "object": "CYP2C9",
+        "evidence_refs": ["EVD_FDA_AMIO_01"]
+      },
+      {
+        "claim_id": "CLM_AMIO_02",
+        "subject": "ing_amiodarone",
+        "predicate": "HAS_EFFECT",
+        "object": "PD_EFFECT_QT_PROLONGATION",
+        "strength": "HIGH",
+        "evidence_refs": ["EVD_FDA_AMIO_01"]
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "EVD_FDA_AMIO_01",
+        "source": "OpenFDA",
+        "publication": "FDA Label - Cordarone",
+        "confidence": "HIGH"
+      }
+    ]
+  }
+]

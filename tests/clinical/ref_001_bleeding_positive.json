@@ -1,0 +1,18 @@
+{
+  "test_id": "ref_001_bleeding_positive",
+  "type": "clinical_regression",
+  "description": "Tests that Warfarin (Anticoagulant) + Ibuprofen (NSAID) triggers the bleeding risk rule.",
+  "input": {
+    "patient_id": "pt_001",
+    "allergies": [],
+    "medications": [
+      { "drug_id": "drg_warfarin", "status": "active" },
+      { "drug_id": "drg_ibuprofen", "status": "active" }
+    ]
+  },
+  "expected_output": {
+    "triggered_rules": ["bleeding_risk_interaction"],
+    "highest_severity": "CRITICAL",
+    "flags_count": 1
+  }
+}

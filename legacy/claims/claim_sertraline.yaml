@@ -1,0 +1,7 @@
+claim_id: CLAIM_SERTRALINE_001
+subject: RXNORM_36437
+predicate: HAS_EFFECT
+object: PD_EFFECT_UNKNOWN
+strength: HIGH
+evidence:
+- EVD_FDA_SERTRALINE_001

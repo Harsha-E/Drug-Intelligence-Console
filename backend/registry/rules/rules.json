@@ -1,0 +1,145 @@
+{
+  "allergy_contraindication": {
+    "rule": "allergy_contraindication",
+    "version": 1.0,
+    "priority": "CRITICAL",
+    "description": "Prevents administration of drugs when the patient has a documented allergy to the drug's allergen class or a cross-reactive class",
+    "conditions": [
+      {
+        "match": {
+          "context": "Patient.allergies",
+          "as": "allergy"
+        }
+      },
+      {
+        "match": {
+          "context": "Patient.medications",
+          "as": "med"
+        }
+      },
+      {
+        "evaluate": {
+          "operator": "EXTRACT",
+          "target": "med.ingredients[*].allergen_class",
+          "as": "drug_allergens"
+        }
+      },
+      {
+        "evaluate": {
+          "operator": "EXTRACT",
+          "target": "med.relationships[type=\"cross_reacts_with\"].target",
+          "as": "cross_reactive_allergens"
+        }
+      },
+      {
+        "check": {
+          "operator": "ANY_IN",
+          "left": "allergy.allergen_class",
+          "right": "UNION(drug_allergens, cross_reactive_allergens)"
+        }
+      }
+    ],
+    "actions": [
+      {
+        "trigger": {
+          "type": "CONTRAINDICATION",
+          "message": "Absolute Contraindication: Patient has a documented allergy to {allergy.allergen_class}, which conflicts with {med.identity.canonical_name}.",
+          "severity": "CRITICAL",
+          "tags": [
+            "allergy",
+            "absolute_contraindication"
+          ]
+        }
+      }
+    ]
+  },
+  "bleeding_risk_interaction": {
+    "rule": "bleeding_risk_interaction",
+    "version": 1.0,
+    "priority": "CRITICAL",
+    "description": "Flags combination of two or more drugs that increase bleeding risk",
+    "conditions": [
+      {
+        "match": {
+          "context": "Patient.medications",
+          "as": "med1",
+          "where": [
+            "\"PD_EFFECT_BLEEDING\" IN med1.clinical_knowledge.clinical_characteristics",
+            "med1.clinical_knowledge.pharmacodynamic_effects contains {effect: \"PD_EFFECT_BLEEDING\", direction: \"INCREASE\"}"
+          ]
+        }
+      },
+      {
+        "match": {
+          "context": "Patient.medications",
+          "as": "med2",
+          "where": [
+            "med1.drug_id != med2.drug_id",
+            "\"PD_EFFECT_BLEEDING\" IN med2.clinical_knowledge.clinical_characteristics",
+            "med2.clinical_knowledge.pharmacodynamic_effects contains {effect: \"PD_EFFECT_BLEEDING\", direction: \"INCREASE\"}"
+          ]
+        }
+      }
+    ],
+    "actions": [
+      {
+        "trigger": {
+          "type": "CONTRAINDICATION",
+          "message": "High Bleeding Risk: Concurrent use of {med1.identity.canonical_name} and {med2.identity.canonical_name} significantly increases the risk of hemorrhage.",
+          "severity": "CRITICAL",
+          "tags": [
+            "bleeding_risk",
+            "pharmacodynamic_interaction"
+          ]
+        }
+      }
+    ]
+  },
+  "duplicate_therapy": {
+    "rule": "duplicate_therapy",
+    "version": 1.0,
+    "priority": "HIGH",
+    "description": "Detects concurrent use of multiple drugs from the same therapeutic class",
+    "conditions": [
+      {
+        "match": {
+          "context": "Patient.medications",
+          "as": "med1"
+        }
+      },
+      {
+        "match": {
+          "context": "Patient.medications",
+          "as": "med2",
+          "where": "med1.drug_id != med2.drug_id"
+        }
+      },
+      {
+        "evaluate": {
+          "operator": "INTERSECT",
+          "left": "med1.clinical_knowledge.classifications",
+          "right": "med2.clinical_knowledge.classifications",
+          "as": "overlapping_classes"
+        }
+      },
+      {
+        "check": {
+          "operator": "NOT_EMPTY",
+          "target": "overlapping_classes"
+        }
+      }
+    ],
+    "actions": [
+      {
+        "trigger": {
+          "type": "WARNING",
+          "message": "Duplicate therapy detected: Both {med1.identity.canonical_name} and {med2.identity.canonical_name} belong to class(es): {overlapping_classes}",
+          "severity": "HIGH",
+          "tags": [
+            "duplicate_therapy"
+          ]
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "amoxicillin": "amoxicillin",
+  "amoxil": "amoxicillin",
+  "aspirin": "aspirin",
+  "acetylsalicylic acid": "aspirin",
+  "bayer": "aspirin",
+  "cetirizine": "cetirizine",
+  "zyrtec": "cetirizine",
+  "fluoxetine": "fluoxetine",
+  "prozac": "fluoxetine",
+  "ibuprofen": "ibuprofen",
+  "advil": "ibuprofen",
+  "motrin": "ibuprofen",
+  "paracetamol": "paracetamol",
+  "acetaminophen": "paracetamol",
+  "tylenol": "paracetamol",
+  "panadol": "paracetamol",
+  "sertraline": "sertraline",
+  "zoloft": "sertraline",
+  "warfarin": "warfarin",
+  "coumadin": "warfarin",
+  "jantoven": "warfarin"
+}

@@ -1,0 +1,10 @@
+mappings:
+  claim_bleeding_overlap:
+    supports:
+      - ev_aha_bleeding_2025
+  claim_duplicate_ssri:
+    supports:
+      - ev_apa_ssri_2025
+  claim_penicillin_cross_reactivity:
+    supports:
+      - ev_penicillin_class_allergy

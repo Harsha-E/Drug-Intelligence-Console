@@ -1,0 +1,7 @@
+claim_id: CLAIM_IBUPROFEN_001
+subject: RXNORM_5640
+predicate: HAS_EFFECT
+object: PD_EFFECT_UNKNOWN
+strength: HIGH
+evidence:
+- EVD_FDA_IBUPROFEN_001

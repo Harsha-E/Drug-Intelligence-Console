@@ -1,0 +1,56 @@
+{
+  "entity_type": "DrugKnowledge",
+  "drug_id": "drg_amoxicillin",
+  "identity": {
+    "canonical_name": "amoxicillin",
+    "aliases": ["Amoxil"],
+    "codes": {
+      "rxnorm": "723",
+      "atc": "J01CA04"
+    }
+  },
+  "ingredients": [
+    {
+      "ingredient_id": "ing_amoxicillin",
+      "name": "amoxicillin",
+      "role": "active",
+      "allergen_class": "penicillin"
+    }
+  ],
+  "clinical_knowledge": {
+    "classifications": ["Antibiotic", "Beta-lactam", "Penicillin"],
+    "clinical_characteristics": ["bactericidal"],
+    "pharmacodynamic_effects": [],
+    "contraindications": [
+      {
+        "category": "allergy",
+        "trigger": "penicillin",
+        "severity": "ABSOLUTE",
+        "evidence_refs": ["ev_penicillin_class_allergy"]
+      }
+    ]
+  },
+  "relationships": [
+    {
+      "type": "belongs_to_class",
+      "target": "Penicillin"
+    },
+    {
+      "type": "cross_reacts_with",
+      "target": "Penicillin"
+    },
+    {
+      "type": "cross_reacts_with",
+      "target": "Cephalosporin"
+    }
+  ],
+  "evidence_refs": ["ev_penicillin_class_allergy"],
+  "metadata": {
+    "knowledge_version": "1.0",
+    "schema_version": "1.1",
+    "created": "2026-08-01",
+    "modified": "2026-08-01",
+    "review_cycle": "annual",
+    "reviewed_by": "System"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "compiled_rules_count": 3,
+  "rules": [
+    {
+      "rule_id": "allergy_contraindication",
+      "version": 1.0,
+      "priority": "CRITICAL",
+      "hash": "93b9199940b27aff251be21bf6fb1f50e0f1b534f3b78b8f1984b33e0fa91075",
+      "compiled_at": 1785602286.9124184
+    },
+    {
+      "rule_id": "bleeding_risk_interaction",
+      "version": 1.0,
+      "priority": "CRITICAL",
+      "hash": "54dc0a2e16a0550e10831256cd5c1bded35cf8972329ac2ba228ce941368643b",
+      "compiled_at": 1785602286.9154284
+    },
+    {
+      "rule_id": "duplicate_therapy",
+      "version": 1.0,
+      "priority": "HIGH",
+      "hash": "de6b4856c9191423ef6bce4b9764ca2342db16510a778ddb6971df4db871376e",
+      "compiled_at": 1785602286.9174154
+    }
+  ],
+  "timestamp": 1785602286.91842
+}

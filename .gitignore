@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+*.db
+.env
+backend/registry/current/
+backend/registry/review_queue/
+backend/registry/accepted_knowledge/
+ingestion/workspace/
+legacy/execution_history.jsonl

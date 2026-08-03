@@ -1,0 +1,10 @@
+mappings:
+  knowledge_warfarin:
+    uses:
+      - PD_EFFECT_BLEEDING
+  knowledge_ibuprofen:
+    uses:
+      - PD_EFFECT_BLEEDING
+  knowledge_aspirin:
+    uses:
+      - PD_EFFECT_BLEEDING

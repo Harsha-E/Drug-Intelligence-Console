@@ -1,0 +1,4 @@
+mappings:
+  claim_bleeding_overlap:
+    references:
+      - PD_EFFECT_BLEEDING

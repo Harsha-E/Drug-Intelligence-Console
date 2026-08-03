@@ -1,0 +1,7 @@
+claim_id: CLAIM_APIXABAN_001
+subject: RXNORM_1364430
+predicate: HAS_EFFECT
+object: PD_EFFECT_UNKNOWN
+strength: HIGH
+evidence:
+- EVD_FDA_APIXABAN_001

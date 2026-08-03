@@ -1,0 +1,10 @@
+mappings:
+  bleeding_risk_interaction:
+    supports:
+      - claim_bleeding_overlap
+  duplicate_therapy:
+    supports:
+      - claim_duplicate_ssri
+  allergy_contraindication:
+    supports:
+      - claim_penicillin_cross_reactivity

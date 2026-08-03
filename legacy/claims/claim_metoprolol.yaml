@@ -1,0 +1,7 @@
+claim_id: CLAIM_METOPROLOL_001
+subject: RXNORM_6918
+predicate: HAS_EFFECT
+object: PD_EFFECT_UNKNOWN
+strength: HIGH
+evidence:
+- EVD_FDA_METOPROLOL_001

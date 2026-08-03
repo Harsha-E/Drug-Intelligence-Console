@@ -1,0 +1,19 @@
+{
+  "test_id": "ref_003_allergy_positive",
+  "type": "clinical_regression",
+  "description": "Tests that a Penicillin allergy contraindicates Amoxicillin.",
+  "input": {
+    "patient_id": "pt_003",
+    "allergies": [
+      { "allergen_class": "penicillin", "severity": "severe" }
+    ],
+    "medications": [
+      { "drug_id": "drg_amoxicillin", "status": "active" }
+    ]
+  },
+  "expected_output": {
+    "triggered_rules": ["allergy_contraindication"],
+    "highest_severity": "CRITICAL",
+    "flags_count": 1
+  }
+}

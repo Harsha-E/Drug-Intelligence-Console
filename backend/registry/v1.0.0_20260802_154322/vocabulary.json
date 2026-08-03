@@ -1,0 +1,44 @@
+{
+  "RXNORM_1191": {
+    "term_id": "RXNORM_1191",
+    "label": "Aspirin",
+    "category": "drug",
+    "status": "active",
+    "version": 1.0
+  },
+  "RXNORM_11289": {
+    "term_id": "RXNORM_11289",
+    "label": "Warfarin",
+    "category": "drug",
+    "status": "active",
+    "version": 1.0
+  },
+  "PD_EFFECT_BLEEDING": {
+    "term_id": "PD_EFFECT_BLEEDING",
+    "label": "Increased Bleeding Risk",
+    "category": "pharmacodynamic_effect",
+    "status": "active",
+    "version": 1.0
+  },
+  "ENZ_CYP2C9": {
+    "term_id": "ENZ_CYP2C9",
+    "label": "Cytochrome P450 2C9",
+    "category": "enzyme",
+    "status": "active",
+    "version": 1.0
+  },
+  "CLASS_ANTICOAGULANT": {
+    "term_id": "CLASS_ANTICOAGULANT",
+    "label": "Anticoagulant",
+    "category": "therapeutic_class",
+    "status": "active",
+    "version": 1.0
+  },
+  "CLASS_NSAID": {
+    "term_id": "CLASS_NSAID",
+    "label": "Nonsteroidal Anti-inflammatory Drug",
+    "category": "therapeutic_class",
+    "status": "active",
+    "version": 1.0
+  }
+}

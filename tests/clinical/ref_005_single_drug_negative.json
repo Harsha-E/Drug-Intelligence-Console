@@ -1,0 +1,17 @@
+{
+  "test_id": "ref_005_single_drug_negative",
+  "type": "clinical_regression",
+  "description": "Tests that a single SSRI (Sertraline) does not trigger the duplicate therapy rule.",
+  "input": {
+    "patient_id": "pt_005",
+    "allergies": [],
+    "medications": [
+      { "drug_id": "drg_sertraline", "status": "active" }
+    ]
+  },
+  "expected_output": {
+    "triggered_rules": [],
+    "highest_severity": "NONE",
+    "flags_count": 0
+  }
+}
