@@ -16,7 +16,14 @@ from backend.api.ingestion import router as ingestion_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator:
-    registry_path = os.getenv("REGISTRY_DIR", os.path.join(os.path.dirname(__file__), "registry", "current"))
+    base_dir = os.path.dirname(__file__)
+    registry_path = os.getenv("REGISTRY_DIR")
+    if not registry_path:
+        current_dir = os.path.join(base_dir, "registry", "current")
+        if os.path.exists(current_dir) and any(f.endswith('.json') for f in os.listdir(current_dir)):
+            registry_path = current_dir
+        else:
+            registry_path = os.path.join(base_dir, "registry")
     runtime.load(registry_path)
     yield
 
