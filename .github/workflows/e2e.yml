@@ -20,7 +20,12 @@ jobs:
         cache: 'pip'
 
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt -r requirements-dev.txt
+
+    - name: Bootstrap Knowledge Registry
+      run: PYTHONPATH=. python tests/regression_suite.py
 
     - name: Run E2E Test Script
       run: |
