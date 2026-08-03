@@ -25,8 +25,14 @@ class TelemetryEvent(BaseModel):
 class TelemetryCollector:
     def __init__(self):
         self.subscribers = []
+        self.main_loop = None
         
     def subscribe(self, queue: asyncio.Queue):
+        if self.main_loop is None:
+            try:
+                self.main_loop = asyncio.get_running_loop()
+            except RuntimeError:
+                pass
         self.subscribers.append(queue)
         
     def unsubscribe(self, queue: asyncio.Queue):
@@ -69,7 +75,10 @@ def emit_event(execution: ExecutionRecord, event_type: str, stage: str, payload:
         loop = asyncio.get_running_loop()
         loop.create_task(telemetry.publish(event_obj))
     except RuntimeError:
-        pass # Not in an async loop context
+        # We are in a worker thread. We must use call_soon_threadsafe for each subscriber queue.
+        if telemetry.main_loop:
+            for queue in telemetry.subscribers:
+                telemetry.main_loop.call_soon_threadsafe(queue.put_nowait, event_obj)
 
 def add_graph_node(execution: ExecutionRecord, node_id: str, type: str, label: str, properties: Dict[str, Any] = None):
     node = ClinicalKnowledgeNode(id=node_id, type=type, label=label, properties=properties or {})
