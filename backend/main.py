@@ -56,8 +56,7 @@ def serve_frontend_index():
         return FileResponse(os.path.join(frontend_dir, "index.html"))
     return {"message": "Frontend not found"}
 
-if os.path.exists(frontend_dir):
-    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+
 
 engine = ReasoningEngine()
 
@@ -190,8 +189,10 @@ def search_drugs(q: str):
     # For a production DB this would be elasticsearch, but for O(1) in-memory it's fine for small dataset.
     return {"results": results[:50]}
 
+from fastapi.concurrency import run_in_threadpool
+
 @app.post("/api/v1/analyze")
-def analyze_medications(req: AnalyzeRequest):
+async def analyze_medications(req: AnalyzeRequest):
     # Create Immutable Execution Record
     execution = ledger.create(req.model_dump())
     
@@ -212,7 +213,7 @@ def analyze_medications(req: AnalyzeRequest):
                 pass # Ignore if pipeline fails in background
                 
     # Run the Engine
-    engine.check_interactions(execution, req.medications, req.patient, runtime.knowledge_graph)
+    await run_in_threadpool(engine.check_interactions, execution, req.medications, req.patient, runtime.knowledge_graph)
     
     t1 = time.time()
     execution.total_latency_ms = (t1 - t0) * 1000
@@ -250,30 +251,47 @@ def analyze_medications(req: AnalyzeRequest):
     }
     
     runtime.add_trace(execution.execution_id, trace_data)
-    runtime.add_history({
-        "action": "analyze",
-        "execution_id": execution.execution_id,
-        "medication_count": len(req.medications),
-        "interactions_found": len(execution.clinical_decision) if execution.clinical_decision else 0,
-        "timestamp": execution.timestamp * 1000,
-        "latency_ms": execution.total_latency_ms
-    })
+    record_dict = {
+        "analysis_id": execution.execution_id,
+        "request_timestamp": execution.timestamp * 1000,
+        "status": clinical_report["status"],
+        "total_latency_ms": execution.total_latency_ms,
+        "patient_summary": {"patient_id": "Unknown"}
+    }
+    runtime.add_history(record_dict)
+    
+    try:
+        from backend.core.telemetry import telemetry, TelemetryEvent
+        event = TelemetryEvent(
+            execution_id=execution.execution_id,
+            event_type="ANALYSIS_COMPLETED",
+            stage="REASONING_ENGINE",
+            timestamp=time.time(),
+            elapsed_ms=execution.total_latency_ms,
+            payload=record_dict
+        )
+        loop = asyncio.get_running_loop()
+        loop.create_task(telemetry.publish(event))
+    except Exception:
+        pass
     
     return trace_data
 
 from fastapi.responses import StreamingResponse
 
-@app.get("/api/v1/stream")
+@app.get("/api/v1/history/stream")
 async def stream_telemetry():
     """SSE endpoint for live telemetry"""
     queue = asyncio.Queue()
+    from backend.core.telemetry import telemetry
     telemetry.subscribe(queue)
     
     async def event_generator():
+        import json
         try:
             while True:
                 event = await queue.get()
-                yield f"data: {event.model_dump_json()}\n\n"
+                yield f"data: {json.dumps(event.payload)}\n\n"
         except asyncio.CancelledError:
             telemetry.unsubscribe(queue)
             
@@ -293,7 +311,7 @@ def check_interactions(req: InteractionsRequest):
     
     return {"interactions": interactions}
 
-@app.get("/api/v1/analysis/{id}")
+@app.get("/api/v1/history/{id}")
 def get_analysis(id: str):
     trace = runtime.get_trace(id)
     if not trace:
@@ -302,7 +320,7 @@ def get_analysis(id: str):
 
 @app.get("/api/v1/history")
 def get_history():
-    return {"history": runtime.get_history()}
+    return runtime.get_history()
 
 @app.get("/api/v1/registry/stats")
 def get_registry_stats():
@@ -316,6 +334,9 @@ def get_registry(resource: str):
         raise HTTPException(status_code=404, detail="Registry resource not found")
     return data
 
+if os.path.exists(frontend_dir):
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "7860"))
-    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
+    uvicorn.run("backend.main:app", host="0.0.0.0", port=port, reload=True)

@@ -1,0 +1,121 @@
+name: End-to-End Verification
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run E2E Test Script
+      run: |
+        cat << 'EOF' > test_e2e.py
+        import urllib.request
+        import json
+        import time
+        import subprocess
+        import threading
+        import sys
+
+        # Start backend
+        backend_proc = subprocess.Popen([sys.executable, "-m", "backend.main"], stdout=open("backend.log", "w"), stderr=subprocess.STDOUT)
+
+        print("Waiting for backend...")
+        ready = False
+        for _ in range(20):
+            time.sleep(1)
+            try:
+                res = urllib.request.urlopen("http://localhost:7860/health")
+                if res.status == 200:
+                    ready = True
+                    break
+            except Exception:
+                pass
+
+        if not ready:
+            print("Backend failed to start!")
+            with open("backend.log", "r") as f:
+                print(f.read())
+            backend_proc.kill()
+            sys.exit(1)
+
+        print("Backend is READY!")
+        print("Testing basic endpoints...")
+        try:
+            health = urllib.request.urlopen("http://localhost:7860/health").status
+            ready = urllib.request.urlopen("http://localhost:7860/ready").status
+            version = urllib.request.urlopen("http://localhost:7860/version").status
+            metrics = urllib.request.urlopen("http://localhost:7860/metrics").status
+            print(f"Health: {health}, Ready: {ready}, Version: {version}, Metrics: {metrics}")
+            assert health == 200
+        except Exception as e:
+            print(f"Endpoint test failed: {e}")
+            sys.exit(1)
+
+        print("Starting SSE listener...")
+        sse_output = []
+        def listen_sse():
+            try:
+                req = urllib.request.Request("http://localhost:7860/api/v1/history/stream")
+                with urllib.request.urlopen(req) as response:
+                    for line in response:
+                        decoded = line.decode('utf-8').strip()
+                        if not decoded: continue
+                        sse_output.append(decoded)
+                        if decoded.startswith('data:'): break
+            except Exception as e:
+                sse_output.append(f"SSE Error: {e}")
+
+        t = threading.Thread(target=listen_sse)
+        t.daemon = True
+        t.start()
+        time.sleep(2)
+
+        print("Sending POST /api/v1/analyze...")
+        body = {"medications": [{"id": "DIC_DRUG_1", "name": "Aspirin"}]}
+        data = json.dumps(body).encode('utf-8')
+        req = urllib.request.Request("http://localhost:7860/api/v1/analyze", data=data, headers={'Content-Type': 'application/json'}, method='POST')
+        try:
+            with urllib.request.urlopen(req) as res:
+                print(f"Analyze Status: {res.status}")
+                assert res.status == 200
+        except Exception as e:
+            print(f"Analyze POST failed: {e}")
+            sys.exit(1)
+
+        time.sleep(2)
+        t.join(timeout=2)
+
+        print("SSE output:")
+        event_received = False
+        for line in sse_output:
+            print(line)
+            if line.startswith("data:"):
+                event_received = True
+
+        print("Terminating backend...")
+        backend_proc.kill()
+        
+        if not event_received:
+            print("Failed to receive telemetry event via SSE.")
+            sys.exit(1)
+        
+        print("E2E Test Passed successfully.")
+        EOF
+        
+        python test_e2e.py
