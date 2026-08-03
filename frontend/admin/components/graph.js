@@ -16,10 +16,10 @@ export class GraphVisualizer {
 
         const elements = [
             ...graphData.nodes.map(n => ({
-                data: { id: n.id, label: n.label || n.id, type: n.type }
+                data: { id: n.id, label: n.label || n.id, type: n.type, ...n.properties }
             })),
             ...graphData.edges.map(e => ({
-                data: { id: e.id, source: e.source, target: e.target, label: e.relation }
+                data: { id: `${e.source}_${e.target}_${e.relationship || e.relation}`, source: e.source, target: e.target, label: e.relationship || e.relation }
             }))
         ];
 
@@ -50,7 +50,7 @@ export class GraphVisualizer {
                     style: { 'background-color': '#18181b', 'border-color': '#71717a' }
                 },
                 {
-                    selector: 'node[type = "Drug"]',
+                    selector: 'node[type = "Drug"], node[type = "Medication"]',
                     style: { 'background-color': '#1e3a8a', 'border-color': '#3b82f6' }
                 },
                 {

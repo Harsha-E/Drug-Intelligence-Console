@@ -28,20 +28,23 @@ def run_all_checks():
             print(f"[FAIL] GET /ready -> {e}")
             results["Registry Bootstrap"] = "FAIL"
 
-        # 3. Metrics
+        # 3. Metrics Endpoint
         try:
             resp = client.get("/metrics")
+            resp_v1 = client.get("/api/v1/metrics")
             body = resp.json()
-            print(f"[PASS] GET /metrics -> total_drugs={body.get('total_drugs')}, total_claims={body.get('total_claims')}, total_evidence={body.get('total_evidence')}, total_rules={body.get('total_rules')}")
-            results["Metrics Endpoint"] = "PASS" if resp.status_code == 200 else "FAIL"
+            assert resp_v1.status_code == 200, "/api/v1/metrics failed"
+            print(f"[PASS] GET /metrics & /api/v1/metrics -> total_drugs={body['total_drugs']}, total_claims={body['total_claims']}, total_evidence={body['total_evidence']}, total_rules={body['total_rules']}")
+            results["Metrics Endpoint"] = "PASS" if resp.status_code == 200 and resp_v1.status_code == 200 else "FAIL"
         except Exception as e:
             print(f"[FAIL] GET /metrics -> {e}")
             results["Metrics Endpoint"] = "FAIL"
 
-        # 4. Version
+        # 4. Version Check
         try:
             resp = client.get("/version")
-            print(f"[PASS] GET /version -> {resp.status_code} : {resp.json()}")
+            body = resp.json()
+            print(f"[PASS] GET /version -> {resp.status_code} : {body}")
             results["Version Check"] = "PASS" if resp.status_code == 200 else "FAIL"
         except Exception as e:
             print(f"[FAIL] GET /version -> {e}")
@@ -51,20 +54,23 @@ def run_all_checks():
         try:
             resp = client.get("/api/v1/registry/stats")
             body = resp.json()
-            print(f"[PASS] GET /api/v1/registry/stats -> medicines={body['metrics']['medicines']}, claims={body['metrics']['claims']}")
+            print(f"[PASS] GET /api/v1/registry/stats -> medicines={body.get('drug_lookup_count', 0)}, claims={body.get('claims_count', 0)}")
             results["Registry Stats"] = "PASS" if resp.status_code == 200 else "FAIL"
         except Exception as e:
             print(f"[FAIL] GET /api/v1/registry/stats -> {e}")
             results["Registry Stats"] = "FAIL"
 
-        # 6. Registry Knowledge & Drugs
+        # 6. Registry APIs & Rules Endpoint
         try:
-            resp = client.get("/api/v1/registry/knowledge")
-            body = resp.json()
-            print(f"[PASS] GET /api/v1/registry/knowledge -> {len(body)} entries loaded")
-            results["Registry APIs"] = "PASS" if resp.status_code == 200 else "FAIL"
+            resp_know = client.get("/api/v1/registry/knowledge")
+            resp_rules = client.get("/api/v1/registry/rules")
+            assert resp_know.status_code == 200, "registry/knowledge failed"
+            assert resp_rules.status_code == 200, "registry/rules failed"
+            body_know = resp_know.json()
+            print(f"[PASS] GET /api/v1/registry/knowledge & /rules -> 200 OK ({len(body_know)} entries loaded)")
+            results["Registry APIs"] = "PASS"
         except Exception as e:
-            print(f"[FAIL] GET /api/v1/registry/knowledge -> {e}")
+            print(f"[FAIL] GET /api/v1/registry/knowledge or /rules -> {e}")
             results["Registry APIs"] = "FAIL"
 
         # 7. Drug Search

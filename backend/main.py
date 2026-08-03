@@ -123,6 +123,7 @@ def root():
     return {"status": "ok", "layer": "MedCheck Intelligence Cloud"}
 
 @app.get("/metrics")
+@app.get("/api/v1/metrics")
 def get_metrics():
     sizes = runtime.get_registry_sizes()
     uptime = time.time() - metrics["start_time"]
@@ -336,7 +337,7 @@ def get_registry_stats():
 @app.get("/api/v1/registry/{resource}")
 def get_registry(resource: str):
     data = runtime.get_registry(resource)
-    if not data:
+    if data is None or (isinstance(data, dict) and not data and resource not in runtime._cache):
         raise HTTPException(status_code=404, detail="Registry resource not found")
     return data
 
