@@ -192,10 +192,10 @@ export class WorkspacePanel {
         const renderPipelineHTML = (executedNodes) => {
             const hasNodesOfType = (type) => executedNodes.some(n => n.type === type);
             const stages = [
-                { id: 'input', label: 'Input Received', executed: true, details: \`Patient ID: \${record.patient_summary?.patient_id}\` },
+                { id: 'input', label: 'Input Received', executed: true, details: `Patient ID: ${record.patient_summary?.patient_id}` },
                 { id: 'ocr', label: 'OCR', executed: hasNodesOfType('OCR'), details: 'No OCR nodes found.' },
-                { id: 'decision', label: 'Clinical Decision', executed: hasNodesOfType('Recommendation'), details: \`Generated \${record.report?.alerts?.length || 0} alerts.\` },
-                { id: 'latency', label: 'Total Latency', executed: true, details: \`\${record.total_latency_ms}ms\` }
+                { id: 'decision', label: 'Clinical Decision', executed: hasNodesOfType('Recommendation'), details: `Generated ${record.report?.alerts?.length || 0} alerts.` },
+                { id: 'latency', label: 'Total Latency', executed: true, details: `${record.total_latency_ms}ms` }
             ];
 
             return stages.map(stage => `
