@@ -6,75 +6,15 @@
     <title>DIC Control Center</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dock.css">
 </head>
 <body>
-    <div class="app-layout">
-        <!-- LEFT PANEL -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="glow-icon">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
-                    <span>Command Center</span>
-                </div>
-            </div>
-            
-            <nav class="sidebar-nav">
-                <a href="#/live-analyses" class="nav-item active">
-                    Live Requests 
-                    <span class="live-pulse" id="live-indicator"></span>
-                </a>
-                <a href="#/event-log" class="nav-item">Event Log</a>
-                <a href="#/runtime" class="nav-item">Runtime</a>
-                
-                <div class="nav-section">KNOWLEDGE BASE</div>
-                <a href="#/registry" class="nav-item">Registry</a>
-                <a href="#/knowledge" class="nav-item">Knowledge</a>
-                <a href="#/claims" class="nav-item">Claims</a>
-                <a href="#/evidence" class="nav-item">Evidence</a>
-                <a href="#/rules" class="nav-item">Rules</a>
-                
-                <div class="nav-section">INFRASTRUCTURE</div>
-                <a href="#/metrics" class="nav-item">Metrics</a>
-                <a href="#/api-keys" class="nav-item">API Keys</a>
-                <a href="#/deployment" class="nav-item">Deployment</a>
-                <a href="#/diagnostics" class="nav-item">Diagnostics</a>
-            </nav>
-        </aside>
-
-        <!-- CENTER PANEL -->
-        <main class="viewport" id="center-panel">
-            <header class="topbar">
-                <div class="breadcrumbs" id="breadcrumbs">Live Requests</div>
-                <div class="topbar-actions">
-                    <div class="status-indicator" id="connection-status">
-                        <span class="pulse green"></span> System Online
-                    </div>
-                </div>
-            </header>
-            
-            <div class="content" id="app-content">
-                <!-- Content injected here by router -->
-            </div>
-        </main>
-
-        <!-- RIGHT PANEL (DEVTOOLS) -->
-        <aside class="devtools-panel" id="devtools-panel" style="display: none;">
-            <div class="devtools-header">
-                <div class="devtools-tabs">
-                    <button class="devtools-tab active" data-tab="dt-request">Request</button>
-                    <button class="devtools-tab" data-tab="dt-processing">Processing</button>
-                    <button class="devtools-tab" data-tab="dt-response">Response</button>
-                    <button class="devtools-tab" data-tab="dt-performance">Perf</button>
-                </div>
-            </div>
-            <div class="devtools-content" id="devtools-content">
-                <!-- DevTools injected here -->
-            </div>
-        </aside>
+    <div id="dock-root" class="app-layout" style="display: flex; width: 100vw; height: 100vh; overflow: hidden; background: var(--bg-dark);">
+        <!-- DockManager will inject the layout tree here -->
     </div>
 
+    <!-- We still need a place to mount the legacy topbar/connection status logic if we migrate it to a panel later, but for now we'll create a TopbarPanel in app.js -->
+    
     <script type="module" src="app.js"></script>
 </body>
 </html>
