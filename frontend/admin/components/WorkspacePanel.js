@@ -1,4 +1,4 @@
-import { GraphVisualizer } from './components/graph.js';
+import { GraphVisualizer } from './graph.js';
 
 export class WorkspacePanel {
     render() {
