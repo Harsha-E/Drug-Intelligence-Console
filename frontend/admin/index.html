@@ -3,78 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIC Control Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <title>Clinical Intelligence Observatory</title>
+    <!-- Structural & Data Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="app-layout">
-        <!-- LEFT PANEL -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="glow-icon">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
-                    <span>Command Center</span>
-                </div>
+<body class="theme-dark">
+    <div class="observatory-layout">
+        
+        <!-- Global Nav -->
+        <nav class="global-nav">
+            <div class="nav-brand">DIC Observatory</div>
+            <div class="nav-links">
+                <a href="#/">Live Runtime</a>
+                <a href="#/analyze">Analyze</a>
             </div>
-            
-            <nav class="sidebar-nav">
-                <a href="#/live-analyses" class="nav-item active">
-                    Live Requests 
-                    <span class="live-pulse" id="live-indicator"></span>
-                </a>
-                <a href="#/event-log" class="nav-item">Event Log</a>
-                <a href="#/runtime" class="nav-item">Runtime</a>
-                
-                <div class="nav-section">KNOWLEDGE BASE</div>
-                <a href="#/registry" class="nav-item">Registry</a>
-                <a href="#/knowledge" class="nav-item">Knowledge</a>
-                <a href="#/claims" class="nav-item">Claims</a>
-                <a href="#/evidence" class="nav-item">Evidence</a>
-                <a href="#/rules" class="nav-item">Rules</a>
-                
-                <div class="nav-section">INFRASTRUCTURE</div>
-                <a href="#/metrics" class="nav-item">Metrics</a>
-                <a href="#/api-keys" class="nav-item">API Keys</a>
-                <a href="#/deployment" class="nav-item">Deployment</a>
-                <a href="#/diagnostics" class="nav-item">Diagnostics</a>
-            </nav>
-        </aside>
+            <div id="connection-status" class="status-indicator disconnected">OFFLINE</div>
+        </nav>
 
-        <!-- CENTER PANEL -->
-        <main class="viewport" id="center-panel">
-            <header class="topbar">
-                <div class="breadcrumbs" id="breadcrumbs">Live Requests</div>
-                <div class="topbar-actions">
-                    <div class="status-indicator" id="connection-status">
-                        <span class="pulse green"></span> System Online
-                    </div>
-                </div>
-            </header>
-            
-            <div class="content" id="app-content">
-                <!-- Content injected here by router -->
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <div id="main-viewport" class="viewport">
+                <!-- Router dynamically mounts views here -->
             </div>
+            
+            <!-- Universal Inspector (TEAM D) -->
+            <aside id="devtools-panel" class="inspector-panel" style="display: none;">
+                <div class="inspector-header">
+                    <h3>Execution Inspector</h3>
+                    <button onclick="window.app && window.app.layoutManager ? window.app.layoutManager.togglePanel('devtools-panel') : null">×</button>
+                </div>
+                <div id="inspector-content" class="inspector-content">
+                    <!-- TEAM D mounts here -->
+                </div>
+            </aside>
         </main>
-
-        <!-- RIGHT PANEL (DEVTOOLS) -->
-        <aside class="devtools-panel" id="devtools-panel" style="display: none;">
-            <div class="devtools-header">
-                <div class="devtools-tabs">
-                    <button class="devtools-tab active" data-tab="dt-request">Request</button>
-                    <button class="devtools-tab" data-tab="dt-processing">Processing</button>
-                    <button class="devtools-tab" data-tab="dt-response">Response</button>
-                    <button class="devtools-tab" data-tab="dt-performance">Perf</button>
-                </div>
-            </div>
-            <div class="devtools-content" id="devtools-content">
-                <!-- DevTools injected here -->
-            </div>
-        </aside>
+        
     </div>
 
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.26.0/cytoscape.min.js"></script>
     <script type="module" src="app.js"></script>
 </body>
 </html>

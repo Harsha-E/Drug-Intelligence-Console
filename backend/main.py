@@ -134,10 +134,10 @@ def get_metrics():
         "uptime_seconds": round(uptime, 2),
         "registry_version": os.getenv("REGISTRY_VERSION", "1.0"),
         "registry_load_duration_ms": getattr(runtime, 'load_duration_ms', 0),
-        "total_drugs": sizes.get("drug_lookup", 0),
-        "total_claims": sizes.get("claims", 0),
-        "total_evidence": sizes.get("evidence", 0),
-        "total_rules": sizes.get("rules", 0),
+        "total_drugs": sizes.get("drug_lookup_count", sizes.get("drug_lookup", 0)),
+        "total_claims": sizes.get("claims_count", sizes.get("claims", 0)),
+        "total_evidence": sizes.get("evidence_count", sizes.get("evidence", 0)),
+        "total_rules": sizes.get("rules_count", sizes.get("rules", 0)),
         "runtime_cache_hits": getattr(runtime, 'cache_hits', 0),
         "runtime_cache_misses": getattr(runtime, 'cache_misses', 0),
         "average_analyze_latency_ms": round(avg_analyze * 1000, 2),
@@ -179,14 +179,19 @@ def search_drugs(q: str):
     
     results = []
     for drug_id, drug_data in drug_lookup.items():
-        canonical_name = drug_data.get("identity", {}).get("canonical_name", "")
-        if q in canonical_name.lower() or q in drug_id.lower():
-            # Inject id into the result dictionary
+        canonical_name = (
+            drug_data.get("identity", {}).get("canonical_name", "")
+            or drug_data.get("name", "")
+            or drug_data.get("label", "")
+        )
+        aliases = drug_data.get("identity", {}).get("aliases", [])
+        
+        matches = q in canonical_name.lower() or q in drug_id.lower() or any(q in a.lower() for a in aliases)
+        if matches:
             res_item = dict(drug_data)
             res_item["id"] = drug_id
             results.append(res_item)
             
-    # For a production DB this would be elasticsearch, but for O(1) in-memory it's fine for small dataset.
     return {"results": results[:50]}
 
 from fastapi.concurrency import run_in_threadpool
@@ -202,8 +207,9 @@ async def analyze_medications(req: AnalyzeRequest):
     medication_ids = [m.id for m in req.medications]
     t0 = time.time()
     
+    kg = getattr(runtime, 'knowledge_graph', None)
     for m in req.medications:
-        if not runtime.knowledge_graph or not runtime.knowledge_graph.get_node(m.id):
+        if not kg or not kg.get_node(m.id):
             unknown_meds.append(m)
             # Auto-queue into the ingestion pipeline
             try:
@@ -291,7 +297,7 @@ async def stream_telemetry():
         try:
             while True:
                 event = await queue.get()
-                yield f"data: {json.dumps(event.payload)}\n\n"
+                yield f"data: {json.dumps(event.model_dump())}\n\n"
         except asyncio.CancelledError:
             telemetry.unsubscribe(queue)
             
@@ -300,7 +306,7 @@ async def stream_telemetry():
 @app.post("/api/v1/interactions")
 def check_interactions(req: InteractionsRequest):
     execution = ledger.create({"medication_ids": req.medication_ids})
-    engine.check_interactions(execution, req.medication_ids)
+    engine.check_interactions(execution, req.medication_ids, None, runtime.knowledge_graph)
     interactions = execution.clinical_decision or []
     
     runtime.add_history({

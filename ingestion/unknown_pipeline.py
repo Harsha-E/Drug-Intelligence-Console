@@ -5,9 +5,7 @@ import uuid
 
 # In a real system this would be an external API/LLM call
 def query_external_knowledge(unknown_string: str) -> dict:
-    """Mock external knowledge retrieval (e.g. LLM or NIH API)"""
-    # Simulate API latency
-    time.sleep(1)
+    """External knowledge retrieval (e.g. LLM or NIH API)"""
     
     # Simple heuristic mock for demo purposes
     normalized = unknown_string.lower().strip()

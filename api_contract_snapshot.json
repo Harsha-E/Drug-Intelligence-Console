@@ -1,0 +1,97 @@
+{
+  "GET /health": {
+    "status": "healthy"
+  },
+  "GET /ready": {
+    "status": "ready",
+    "registries": {
+      "claims_count": 20,
+      "claim_index_count": 7,
+      "drug_lookup_count": 6,
+      "evidence_count": 20,
+      "rules_count": 3
+    }
+  },
+  "GET /metrics": {
+    "uptime_seconds": 0.03,
+    "registry_version": "1.0",
+    "registry_load_duration_ms": 0,
+    "total_drugs": 6,
+    "total_claims": 20,
+    "total_evidence": 20,
+    "total_rules": 3,
+    "runtime_cache_hits": 0,
+    "runtime_cache_misses": 0,
+    "average_analyze_latency_ms": 0,
+    "p95_analyze_latency_ms": 0
+  },
+  "GET /version": {
+    "build_version": "1.0.0",
+    "api_version": "v1",
+    "registry_version": "1.0",
+    "git_commit": "unknown"
+  },
+  "GET /api/v1/registry/stats": {
+    "metrics": {
+      "medicines": 6,
+      "ingredients": 7,
+      "brand_names": 6,
+      "enzymes": 4,
+      "targets": 0,
+      "transporters": 0,
+      "pathways": 0,
+      "mechanisms": 0,
+      "claims": 20,
+      "evidence": 20,
+      "rules": 3,
+      "inferred_interactions": 56,
+      "curated_interactions": 0,
+      "registry_size_bytes": 231,
+      "compile_time_ms": 3.24,
+      "average_reasoning_latency_ms": 1.5,
+      "stats_generation_latency_ms": 0.0
+    }
+  },
+  "GET /api/v1/drugs/search?q=atorvastatin": {
+    "results": [
+      {
+        "entity_type": "DrugKnowledge",
+        "drug_id": "DIC_DRUG_920EDDE5",
+        "identity": {
+          "canonical_name": "atorvastatin",
+          "codes": {
+            "openfda": "ATO_01"
+          }
+        },
+        "ingredients": [
+          {
+            "ingredient_id": "DIC_INGREDIENT_920EDDE5",
+            "name": "atorvastatin",
+            "role": "active",
+            "confidence": 1.0,
+            "matched_source": "OpenFDA",
+            "normalization_method": "Exact Match"
+          }
+        ],
+        "clinical_knowledge": {
+          "classifications": [
+            "Statin",
+            "HMG-CoA Reductase Inhibitor"
+          ]
+        },
+        "id": "DIC_DRUG_920EDDE5"
+      }
+    ]
+  },
+  "POST /api/v1/analyze Schema": [
+    "execution_id",
+    "clinical_report",
+    "reasoning_trace",
+    "evidence",
+    "timestamp",
+    "knowledge_graph"
+  ],
+  "POST /api/v1/interactions Schema": [
+    "interactions"
+  ]
+}

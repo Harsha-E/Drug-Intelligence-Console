@@ -19,6 +19,8 @@ class ClinicalKnowledgeGraph(BaseModel):
     nodes: List[ClinicalKnowledgeNode] = Field(default_factory=list)
     edges: List[ClinicalKnowledgeEdge] = Field(default_factory=list)
 
+import threading
+
 class ExecutionRecord(BaseModel):
     execution_id: str
     timestamp: float
@@ -41,11 +43,15 @@ class ExecutionRecord(BaseModel):
             self.knowledge_graph.nodes.append(node)
 
     def add_edge(self, edge: ClinicalKnowledgeEdge):
-        self.knowledge_graph.edges.append(edge)
+        # ensure unique
+        if not any(e.source == edge.source and e.target == edge.target and e.relationship == edge.relationship for e in self.knowledge_graph.edges):
+            self.knowledge_graph.edges.append(edge)
 
 class ExecutionLedger:
-    def __init__(self):
+    def __init__(self, max_capacity: int = 1000):
         self._records: Dict[str, ExecutionRecord] = {}
+        self.max_capacity = max_capacity
+        self._lock = threading.Lock()
         
     def create(self, request_data: Dict[str, Any]) -> ExecutionRecord:
         exec_id = str(uuid.uuid4())
@@ -54,14 +60,21 @@ class ExecutionLedger:
             timestamp=time.time(),
             request_data=request_data
         )
-        self._records[exec_id] = record
+        with self._lock:
+            # Enforce max capacity window to prevent memory leak
+            if len(self._records) >= self.max_capacity:
+                oldest_key = next(iter(self._records))
+                del self._records[oldest_key]
+            self._records[exec_id] = record
         return record
         
     def get(self, execution_id: str) -> Optional[ExecutionRecord]:
-        return self._records.get(execution_id)
+        with self._lock:
+            return self._records.get(execution_id)
         
     def get_all(self) -> List[ExecutionRecord]:
-        return list(self._records.values())
+        with self._lock:
+            return list(self._records.values())
 
 # Global singleton
 ledger = ExecutionLedger()
