@@ -40,7 +40,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 # Mount frontend/console at the root, fallback to index.html for SPA routing
-frontend_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "console")
+frontend_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "admin")
+repo_root = os.path.dirname(os.path.dirname(__file__))
+
+@app.get("/agents.md")
+def serve_agents_md():
+    agents_path = os.path.join(repo_root, "agents.md")
+    if os.path.exists(agents_path):
+        return FileResponse(agents_path)
+    return {"message": "agents.md not found"}
 
 @app.get("/")
 def serve_frontend_index():
@@ -309,4 +317,4 @@ def get_registry(resource: str):
     return data
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=7860, reload=True)
