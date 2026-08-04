@@ -1,1 +1,242 @@
-{}
+{
+  "DIC_UNKNOWN_3E526F1C": {
+    "claim_id": "DIC_UNKNOWN_3E526F1C",
+    "subject": "DIC_INGREDIENT_41FF21E8",
+    "predicate": "INHIBITS_ENZYME",
+    "object": "DIC_ENZYME_F520E18F",
+    "object_name": "VKORC1",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_F47936DC"
+    ]
+  },
+  "DIC_UNKNOWN_9A6D2EEA": {
+    "claim_id": "DIC_UNKNOWN_9A6D2EEA",
+    "subject": "DIC_INGREDIENT_41FF21E8",
+    "predicate": "METABOLIZED_BY",
+    "object": "DIC_ENZYME_01D35B7D",
+    "object_name": "CYP2C9",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_BD86F826"
+    ]
+  },
+  "DIC_UNKNOWN_2D8733C4": {
+    "claim_id": "DIC_UNKNOWN_2D8733C4",
+    "subject": "DIC_INGREDIENT_41FF21E8",
+    "predicate": "HAS_EFFECT",
+    "object": "DIC_EFFECT_EFA374AD",
+    "object_name": "PD_EFFECT_BLEEDING",
+    "effect": null,
+    "strength": "HIGH",
+    "evidence_refs": [
+      "DIC_EVIDENCE_36FABE85"
+    ]
+  },
+  "DIC_UNKNOWN_38D887A5": {
+    "claim_id": "DIC_UNKNOWN_38D887A5",
+    "subject": "DIC_INGREDIENT_41FF21E8",
+    "predicate": "CONTRAINDICATED_FOR",
+    "object": "DIC_DISEASE_F1D6A553",
+    "object_name": "PREGNANCY",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_AD539097"
+    ]
+  },
+  "DIC_UNKNOWN_1373C9F2": {
+    "claim_id": "DIC_UNKNOWN_1373C9F2",
+    "subject": "DIC_INGREDIENT_920EDDE5",
+    "predicate": "BINDS_TO_TARGET",
+    "object": "DIC_TARGET_2AA80311",
+    "object_name": "HMGCR",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_897B8659"
+    ]
+  },
+  "DIC_UNKNOWN_8D101BCF": {
+    "claim_id": "DIC_UNKNOWN_8D101BCF",
+    "subject": "DIC_INGREDIENT_920EDDE5",
+    "predicate": "TRANSPORTED_BY",
+    "object": "DIC_TRANSPORTER_519416CD",
+    "object_name": "OATP1B1",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_8C84EB08"
+    ]
+  },
+  "DIC_UNKNOWN_B293F112": {
+    "claim_id": "DIC_UNKNOWN_B293F112",
+    "subject": "DIC_INGREDIENT_920EDDE5",
+    "predicate": "METABOLIZED_BY",
+    "object": "DIC_ENZYME_45F5F709",
+    "object_name": "CYP3A4",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_1EFFEEE7"
+    ]
+  },
+  "DIC_UNKNOWN_14FEBBC2": {
+    "claim_id": "DIC_UNKNOWN_14FEBBC2",
+    "subject": "DIC_INGREDIENT_920EDDE5",
+    "predicate": "ALTERS_LAB",
+    "object": "DIC_LAB_D6D7856C",
+    "object_name": "LAB_ALT_AST_ELEVATION",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_BAAC81C1"
+    ]
+  },
+  "DIC_UNKNOWN_F8EEABB0": {
+    "claim_id": "DIC_UNKNOWN_F8EEABB0",
+    "subject": "DIC_INGREDIENT_920EDDE5",
+    "predicate": "HAS_EFFECT",
+    "object": "DIC_EFFECT_B3CBADAD",
+    "object_name": "PD_EFFECT_MYOPATHY",
+    "effect": null,
+    "strength": "MODERATE",
+    "evidence_refs": [
+      "DIC_EVIDENCE_9BDCB6B4"
+    ]
+  },
+  "DIC_UNKNOWN_0F24BA88": {
+    "claim_id": "DIC_UNKNOWN_0F24BA88",
+    "subject": "DIC_INGREDIENT_F10BFEE3",
+    "predicate": "INHIBITS_ENZYME",
+    "object": "DIC_ENZYME_45F5F709",
+    "object_name": "CYP3A4",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_206D3EC8"
+    ]
+  },
+  "DIC_UNKNOWN_482A29FF": {
+    "claim_id": "DIC_UNKNOWN_482A29FF",
+    "subject": "DIC_INGREDIENT_F10BFEE3",
+    "predicate": "INHIBITS_TRANSPORTER",
+    "object": "DIC_TRANSPORTER_519416CD",
+    "object_name": "OATP1B1",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_87270C6C"
+    ]
+  },
+  "DIC_UNKNOWN_D58412B5": {
+    "claim_id": "DIC_UNKNOWN_D58412B5",
+    "subject": "DIC_INGREDIENT_F10BFEE3",
+    "predicate": "INHIBITS_TRANSPORTER",
+    "object": "DIC_TRANSPORTER_DCBD15AC",
+    "object_name": "P-gp",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_C7683F8D"
+    ]
+  },
+  "DIC_UNKNOWN_E80C362D": {
+    "claim_id": "DIC_UNKNOWN_E80C362D",
+    "subject": "DIC_INGREDIENT_F9D7B012",
+    "predicate": "PREGNANCY_CATEGORY",
+    "object": "DIC_UNKNOWN_6BA9BDF9",
+    "object_name": "CATEGORY_X",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_5D2E74BC"
+    ]
+  },
+  "DIC_UNKNOWN_4B5B74F9": {
+    "claim_id": "DIC_UNKNOWN_4B5B74F9",
+    "subject": "DIC_INGREDIENT_F9D7B012",
+    "predicate": "HAS_EFFECT",
+    "object": "DIC_EFFECT_F22F6E55",
+    "object_name": "PD_EFFECT_HEPATOTOXICITY",
+    "effect": null,
+    "strength": "SEVERE",
+    "evidence_refs": [
+      "DIC_EVIDENCE_4497060D"
+    ]
+  },
+  "DIC_UNKNOWN_D647CCCA": {
+    "claim_id": "DIC_UNKNOWN_D647CCCA",
+    "subject": "DIC_INGREDIENT_F9D7B012",
+    "predicate": "REQUIRES_HEPATIC_ADJUSTMENT_IF",
+    "object": "DIC_DISEASE_DFD99503",
+    "object_name": "SEVERE_IMPAIRMENT",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_C144B485"
+    ]
+  },
+  "DIC_UNKNOWN_0FBB6888": {
+    "claim_id": "DIC_UNKNOWN_0FBB6888",
+    "subject": "DIC_INGREDIENT_78C50FA4",
+    "predicate": "BINDS_TO_TARGET",
+    "object": "DIC_TARGET_2A0B6287",
+    "object_name": "ACE",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_EF2578D7"
+    ]
+  },
+  "DIC_UNKNOWN_D3A89DBB": {
+    "claim_id": "DIC_UNKNOWN_D3A89DBB",
+    "subject": "DIC_INGREDIENT_78C50FA4",
+    "predicate": "REQUIRES_RENAL_ADJUSTMENT_IF",
+    "object": "DIC_DISEASE_DFD99503",
+    "object_name": "SEVERE_IMPAIRMENT",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_89298308"
+    ]
+  },
+  "DIC_UNKNOWN_B9FA672D": {
+    "claim_id": "DIC_UNKNOWN_B9FA672D",
+    "subject": "DIC_INGREDIENT_78C50FA4",
+    "predicate": "CONTRAINDICATED_FOR",
+    "object": "DIC_DISEASE_F1D6A553",
+    "object_name": "PREGNANCY",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_0D822793"
+    ]
+  },
+  "DIC_UNKNOWN_FE2EE79A": {
+    "claim_id": "DIC_UNKNOWN_FE2EE79A",
+    "subject": "DIC_INGREDIENT_6BF39E02",
+    "predicate": "HAS_EFFECT",
+    "object": "DIC_EFFECT_CEB79EE3",
+    "object_name": "PD_EFFECT_BACTERICIDAL",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_DC21F44E"
+    ]
+  },
+  "DIC_UNKNOWN_FBFB993E": {
+    "claim_id": "DIC_UNKNOWN_FBFB993E",
+    "subject": "DIC_INGREDIENT_91E6FCBA",
+    "predicate": "INHIBITS_ENZYME",
+    "object": "DIC_ENZYME_FB73A722",
+    "object_name": "BETA_LACTAMASE",
+    "effect": null,
+    "strength": null,
+    "evidence_refs": [
+      "DIC_EVIDENCE_59E9C283"
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "antibiotic": [
+    "amoxicillin"
+  ],
+  "beta-lactam": [
+    "amoxicillin"
+  ],
+  "penicillin": [
+    "amoxicillin"
+  ],
+  "nsaid": [
+    "aspirin",
+    "ibuprofen"
+  ],
+  "antiplatelet": [
+    "aspirin"
+  ],
+  "salicylate": [
+    "aspirin"
+  ],
+  "antihistamine": [
+    "cetirizine"
+  ],
+  "h1 antagonist": [
+    "cetirizine"
+  ],
+  "antidepressant": [
+    "fluoxetine",
+    "sertraline"
+  ],
+  "ssri": [
+    "fluoxetine",
+    "sertraline"
+  ],
+  "analgesic": [
+    "ibuprofen",
+    "paracetamol"
+  ],
+  "antipyretic": [
+    "ibuprofen",
+    "paracetamol"
+  ],
+  "anticoagulant": [
+    "warfarin"
+  ],
+  "vitamin k antagonist": [
+    "warfarin"
+  ]
+}

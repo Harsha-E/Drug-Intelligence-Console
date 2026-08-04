@@ -1,0 +1,534 @@
+{
+  "amoxicillin": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_amoxicillin",
+    "identity": {
+      "canonical_name": "amoxicillin",
+      "aliases": [
+        "Amoxil"
+      ],
+      "codes": {
+        "rxnorm": "723",
+        "atc": "J01CA04"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_amoxicillin",
+        "name": "amoxicillin",
+        "role": "active",
+        "allergen_class": "penicillin"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Antibiotic",
+        "Beta-lactam",
+        "Penicillin"
+      ],
+      "clinical_characteristics": [
+        "bactericidal"
+      ],
+      "pharmacodynamic_effects": [],
+      "contraindications": [
+        {
+          "category": "allergy",
+          "trigger": "penicillin",
+          "severity": "ABSOLUTE",
+          "evidence_refs": [
+            "ev_penicillin_class_allergy"
+          ]
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "Penicillin"
+      },
+      {
+        "type": "cross_reacts_with",
+        "target": "Penicillin"
+      },
+      {
+        "type": "cross_reacts_with",
+        "target": "Cephalosporin"
+      }
+    ],
+    "evidence_refs": [
+      "ev_penicillin_class_allergy"
+    ],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "aspirin": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_aspirin",
+    "identity": {
+      "canonical_name": "aspirin",
+      "aliases": [
+        "acetylsalicylic acid",
+        "Bayer"
+      ],
+      "codes": {
+        "rxnorm": "1191",
+        "atc": "N02BA01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_aspirin",
+        "name": "aspirin",
+        "role": "active",
+        "allergen_class": "NSAID"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "NSAID",
+        "Antiplatelet",
+        "Salicylate"
+      ],
+      "clinical_characteristics": [
+        "bleeding",
+        "antiplatelet",
+        "gi_irritation"
+      ],
+      "pharmacodynamic_effects": [
+        {
+          "effect": "bleeding_risk",
+          "direction": "INCREASE",
+          "magnitude": "HIGH",
+          "mechanism": "Irreversible inhibition of COX-1 and COX-2, preventing thromboxane A2 formation and inhibiting platelet aggregation",
+          "clinical_significance": "Significantly increases bleeding risk, especially with concurrent anticoagulants or other NSAIDs."
+        }
+      ],
+      "contraindications": [
+        {
+          "category": "allergy",
+          "trigger": "NSAID",
+          "severity": "ABSOLUTE",
+          "evidence_refs": []
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "NSAID"
+      },
+      {
+        "type": "cross_reacts_with",
+        "target": "NSAID"
+      }
+    ],
+    "evidence_refs": [
+      "ev_aha_bleeding_2025"
+    ],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "cetirizine": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_cetirizine",
+    "identity": {
+      "canonical_name": "cetirizine",
+      "aliases": [
+        "Zyrtec"
+      ],
+      "codes": {
+        "rxnorm": "20610",
+        "atc": "R06AE07"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_cetirizine",
+        "name": "cetirizine hydrochloride",
+        "role": "active",
+        "allergen_class": null
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Antihistamine",
+        "H1 antagonist"
+      ],
+      "clinical_characteristics": [
+        "mild_sedation"
+      ],
+      "pharmacodynamic_effects": [
+        {
+          "effect": "cns_depression",
+          "direction": "INCREASE",
+          "magnitude": "LOW",
+          "mechanism": "Second-generation H1 receptor antagonist with low CNS penetration",
+          "clinical_significance": "Mild sedation possible, especially with concurrent CNS depressants."
+        }
+      ],
+      "contraindications": []
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "Antihistamine"
+      }
+    ],
+    "evidence_refs": [],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "fluoxetine": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_fluoxetine",
+    "identity": {
+      "canonical_name": "fluoxetine",
+      "aliases": [
+        "Prozac"
+      ],
+      "codes": {
+        "rxnorm": "4493",
+        "atc": "N06AB03"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_fluoxetine_hcl",
+        "name": "fluoxetine hydrochloride",
+        "role": "active",
+        "allergen_class": null
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Antidepressant",
+        "SSRI"
+      ],
+      "clinical_characteristics": [
+        "serotonergic",
+        "long_half_life"
+      ],
+      "pharmacodynamic_effects": [
+        {
+          "effect": "serotonin_levels",
+          "direction": "INCREASE",
+          "magnitude": "HIGH",
+          "mechanism": "Inhibits CNS neuronal uptake of serotonin (5-HT)",
+          "clinical_significance": "Risk of serotonin syndrome with other serotonergic agents."
+        }
+      ],
+      "contraindications": [
+        {
+          "category": "concurrent_drug",
+          "trigger": "MAOI",
+          "severity": "ABSOLUTE",
+          "evidence_refs": [
+            "ev_apa_ssri_2025"
+          ]
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "SSRI"
+      }
+    ],
+    "evidence_refs": [
+      "ev_apa_ssri_2025"
+    ],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "ibuprofen": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_ibuprofen",
+    "identity": {
+      "canonical_name": "ibuprofen",
+      "aliases": [
+        "Advil",
+        "Motrin"
+      ],
+      "codes": {
+        "rxnorm": "5640",
+        "atc": "M01AE01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_ibuprofen",
+        "name": "ibuprofen",
+        "role": "active",
+        "allergen_class": "NSAID"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "NSAID",
+        "Analgesic",
+        "Antipyretic"
+      ],
+      "clinical_characteristics": [
+        "PD_EFFECT_BLEEDING",
+        "gi_irritation",
+        "renal_clearance"
+      ],
+      "pharmacodynamic_effects": [
+        {
+          "effect": "PD_EFFECT_BLEEDING",
+          "direction": "INCREASE",
+          "magnitude": "MEDIUM",
+          "mechanism": "Reversible COX inhibition leading to decreased prostaglandin synthesis and impaired platelet aggregation",
+          "clinical_significance": "Increases risk of GI bleed, especially with concurrent anticoagulants."
+        }
+      ],
+      "contraindications": [
+        {
+          "category": "allergy",
+          "trigger": "NSAID",
+          "severity": "ABSOLUTE",
+          "evidence_refs": []
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "NSAID"
+      },
+      {
+        "type": "cross_reacts_with",
+        "target": "NSAID"
+      }
+    ],
+    "evidence_refs": [
+      "ev_aha_bleeding_2025"
+    ],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "paracetamol": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_paracetamol",
+    "identity": {
+      "canonical_name": "paracetamol",
+      "aliases": [
+        "acetaminophen",
+        "Tylenol",
+        "Panadol"
+      ],
+      "codes": {
+        "rxnorm": "161",
+        "atc": "N02BE01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_paracetamol",
+        "name": "paracetamol",
+        "role": "active",
+        "allergen_class": "acetaminophen"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Analgesic",
+        "Antipyretic"
+      ],
+      "clinical_characteristics": [
+        "hepatic_metabolism"
+      ],
+      "pharmacodynamic_effects": [],
+      "contraindications": [
+        {
+          "category": "condition",
+          "trigger": "severe_hepatic_impairment",
+          "severity": "ABSOLUTE",
+          "evidence_refs": []
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "Analgesic"
+      }
+    ],
+    "evidence_refs": [],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "sertraline": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_sertraline",
+    "identity": {
+      "canonical_name": "sertraline",
+      "aliases": [
+        "Zoloft"
+      ],
+      "codes": {
+        "rxnorm": "3628",
+        "atc": "N06AB06"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_sertraline_hcl",
+        "name": "sertraline hydrochloride",
+        "role": "active",
+        "allergen_class": null
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Antidepressant",
+        "SSRI"
+      ],
+      "clinical_characteristics": [
+        "serotonergic"
+      ],
+      "pharmacodynamic_effects": [
+        {
+          "effect": "serotonin_levels",
+          "direction": "INCREASE",
+          "magnitude": "HIGH",
+          "mechanism": "Inhibits CNS neuronal uptake of serotonin (5-HT)",
+          "clinical_significance": "Risk of serotonin syndrome with other serotonergic agents."
+        }
+      ],
+      "contraindications": [
+        {
+          "category": "concurrent_drug",
+          "trigger": "MAOI",
+          "severity": "ABSOLUTE",
+          "evidence_refs": [
+            "ev_apa_ssri_2025"
+          ]
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "SSRI"
+      }
+    ],
+    "evidence_refs": [
+      "ev_apa_ssri_2025"
+    ],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  },
+  "warfarin": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "drg_warfarin",
+    "identity": {
+      "canonical_name": "warfarin",
+      "aliases": [
+        "Coumadin",
+        "Jantoven"
+      ],
+      "codes": {
+        "rxnorm": "11289",
+        "atc": "B01AA03"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "ing_warfarin_sodium",
+        "name": "warfarin sodium",
+        "role": "active",
+        "allergen_class": null
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Anticoagulant",
+        "Vitamin K antagonist"
+      ],
+      "clinical_characteristics": [
+        "PD_EFFECT_BLEEDING",
+        "narrow_therapeutic_index",
+        "high_risk"
+      ],
+      "pharmacodynamic_effects": [
+        {
+          "effect": "PD_EFFECT_BLEEDING",
+          "direction": "INCREASE",
+          "magnitude": "HIGH",
+          "mechanism": "Inhibits vitamin K-dependent clotting factors",
+          "clinical_significance": "Major risk of hemorrhage when combined with other bleeding agents."
+        }
+      ],
+      "contraindications": [
+        {
+          "category": "condition",
+          "trigger": "active_major_bleeding",
+          "severity": "ABSOLUTE",
+          "evidence_refs": [
+            "ev_aha_bleeding_2025"
+          ]
+        }
+      ]
+    },
+    "relationships": [
+      {
+        "type": "belongs_to_class",
+        "target": "Vitamin K antagonist"
+      }
+    ],
+    "evidence_refs": [
+      "ev_aha_bleeding_2025"
+    ],
+    "metadata": {
+      "knowledge_version": "1.0",
+      "schema_version": "1.1",
+      "created": "2026-08-01",
+      "modified": "2026-08-01",
+      "review_cycle": "annual",
+      "reviewed_by": "System"
+    }
+  }
+}

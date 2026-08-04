@@ -1,1 +1,162 @@
-{}
+{
+  "DIC_DRUG_41FF21E8": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "DIC_DRUG_41FF21E8",
+    "identity": {
+      "canonical_name": "warfarin",
+      "codes": {
+        "rxnorm": "11289"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "DIC_INGREDIENT_41FF21E8",
+        "name": "warfarin",
+        "role": "active",
+        "confidence": 1.0,
+        "matched_source": "RxNorm",
+        "normalization_method": "Exact Match"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": []
+    }
+  },
+  "DIC_DRUG_920EDDE5": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "DIC_DRUG_920EDDE5",
+    "identity": {
+      "canonical_name": "atorvastatin",
+      "codes": {
+        "openfda": "ATO_01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "DIC_INGREDIENT_920EDDE5",
+        "name": "atorvastatin",
+        "role": "active",
+        "confidence": 1.0,
+        "matched_source": "OpenFDA",
+        "normalization_method": "Exact Match"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Statin",
+        "HMG-CoA Reductase Inhibitor"
+      ]
+    }
+  },
+  "DIC_DRUG_F10BFEE3": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "DIC_DRUG_F10BFEE3",
+    "identity": {
+      "canonical_name": "cyclosporine",
+      "codes": {
+        "openfda": "CYC_01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "DIC_INGREDIENT_F10BFEE3",
+        "name": "cyclosporine",
+        "role": "active",
+        "confidence": 1.0,
+        "matched_source": "OpenFDA",
+        "normalization_method": "Exact Match"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Immunosuppressant",
+        "Calcineurin Inhibitor"
+      ]
+    }
+  },
+  "DIC_DRUG_F9D7B012": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "DIC_DRUG_F9D7B012",
+    "identity": {
+      "canonical_name": "methotrexate",
+      "codes": {
+        "openfda": "MTX_01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "DIC_INGREDIENT_F9D7B012",
+        "name": "methotrexate",
+        "role": "active",
+        "confidence": 1.0,
+        "matched_source": "OpenFDA",
+        "normalization_method": "Exact Match"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Antimetabolite",
+        "DMARD"
+      ]
+    }
+  },
+  "DIC_DRUG_78C50FA4": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "DIC_DRUG_78C50FA4",
+    "identity": {
+      "canonical_name": "lisinopril",
+      "codes": {
+        "openfda": "LIS_01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "DIC_INGREDIENT_78C50FA4",
+        "name": "lisinopril",
+        "role": "active",
+        "confidence": 1.0,
+        "matched_source": "OpenFDA",
+        "normalization_method": "Exact Match"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "ACE Inhibitor"
+      ]
+    }
+  },
+  "DIC_DRUG_9B785507": {
+    "entity_type": "DrugKnowledge",
+    "drug_id": "DIC_DRUG_9B785507",
+    "identity": {
+      "canonical_name": "augmentin",
+      "codes": {
+        "openfda": "AUG_01"
+      }
+    },
+    "ingredients": [
+      {
+        "ingredient_id": "DIC_INGREDIENT_6BF39E02",
+        "name": "amoxicillin",
+        "role": "active",
+        "confidence": 1.0,
+        "matched_source": "OpenFDA",
+        "normalization_method": "Exact Match"
+      },
+      {
+        "ingredient_id": "DIC_INGREDIENT_91E6FCBA",
+        "name": "clavulanate",
+        "role": "active",
+        "confidence": 1.0,
+        "matched_source": "OpenFDA",
+        "normalization_method": "Exact Match"
+      }
+    ],
+    "clinical_knowledge": {
+      "classifications": [
+        "Penicillin Antibiotic",
+        "Beta-Lactamase Inhibitor"
+      ]
+    }
+  }
+}

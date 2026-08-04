@@ -1,0 +1,7 @@
+{
+  "PD_EFFECT_BLEEDING": {
+    "term_id": "PD_EFFECT_BLEEDING",
+    "label": "bleeding_risk",
+    "category": "pharmacodynamic_effect"
+  }
+}

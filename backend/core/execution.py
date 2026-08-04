@@ -54,7 +54,7 @@ class ExecutionLedger:
         self._lock = threading.Lock()
         
     def create(self, request_data: Dict[str, Any]) -> ExecutionRecord:
-        exec_id = str(uuid.uuid4())
+        exec_id = request_data.get("analysis_id") or request_data.get("execution_id") or request_data.get("id") or str(uuid.uuid4())
         record = ExecutionRecord(
             execution_id=exec_id,
             timestamp=time.time(),

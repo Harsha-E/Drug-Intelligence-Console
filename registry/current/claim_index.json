@@ -1,1 +1,23 @@
-{}
+{
+  "claim_bleeding_overlap": {
+    "claim_id": "claim_bleeding_overlap",
+    "version": 1.0,
+    "status": "accepted",
+    "statement": "Concurrent administration of drugs that independently increase bleeding risk increases the patient's overall risk of clinically significant bleeding.\n",
+    "domain": "pharmacodynamics"
+  },
+  "claim_duplicate_ssri": {
+    "claim_id": "claim_duplicate_ssri",
+    "version": 1.0,
+    "status": "accepted",
+    "statement": "Concurrent use of multiple SSRIs lacks evidence for additional efficacy and significantly increases the risk of Serotonin Syndrome.\n",
+    "domain": "therapeutic_duplication"
+  },
+  "claim_penicillin_cross_reactivity": {
+    "claim_id": "claim_penicillin_cross_reactivity",
+    "version": 1.0,
+    "status": "accepted",
+    "statement": "Patients with a history of severe hypersensitivity to penicillins should not receive other beta-lactam antibiotics that share similar side chains due to cross-reactivity risks.\n",
+    "domain": "allergy_contraindication"
+  }
+}

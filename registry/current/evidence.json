@@ -1,1 +1,162 @@
-{}
+{
+  "DIC_EVIDENCE_F47936DC": {
+    "evidence_id": "DIC_EVIDENCE_F47936DC",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_BD86F826": {
+    "evidence_id": "DIC_EVIDENCE_BD86F826",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_36FABE85": {
+    "evidence_id": "DIC_EVIDENCE_36FABE85",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_AD539097": {
+    "evidence_id": "DIC_EVIDENCE_AD539097",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_897B8659": {
+    "evidence_id": "DIC_EVIDENCE_897B8659",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_8C84EB08": {
+    "evidence_id": "DIC_EVIDENCE_8C84EB08",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_1EFFEEE7": {
+    "evidence_id": "DIC_EVIDENCE_1EFFEEE7",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_BAAC81C1": {
+    "evidence_id": "DIC_EVIDENCE_BAAC81C1",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_9BDCB6B4": {
+    "evidence_id": "DIC_EVIDENCE_9BDCB6B4",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_206D3EC8": {
+    "evidence_id": "DIC_EVIDENCE_206D3EC8",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_87270C6C": {
+    "evidence_id": "DIC_EVIDENCE_87270C6C",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_C7683F8D": {
+    "evidence_id": "DIC_EVIDENCE_C7683F8D",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_5D2E74BC": {
+    "evidence_id": "DIC_EVIDENCE_5D2E74BC",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_4497060D": {
+    "evidence_id": "DIC_EVIDENCE_4497060D",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_C144B485": {
+    "evidence_id": "DIC_EVIDENCE_C144B485",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_EF2578D7": {
+    "evidence_id": "DIC_EVIDENCE_EF2578D7",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_89298308": {
+    "evidence_id": "DIC_EVIDENCE_89298308",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_0D822793": {
+    "evidence_id": "DIC_EVIDENCE_0D822793",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_DC21F44E": {
+    "evidence_id": "DIC_EVIDENCE_DC21F44E",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  },
+  "DIC_EVIDENCE_59E9C283": {
+    "evidence_id": "DIC_EVIDENCE_59E9C283",
+    "source": "OpenFDA",
+    "publication": "OpenFDA Data",
+    "retrieval_date": "2026-08-03",
+    "confidence": "HIGH",
+    "source_version": "1.0"
+  }
+}

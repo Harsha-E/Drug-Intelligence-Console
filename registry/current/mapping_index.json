@@ -1,0 +1,60 @@
+{
+  "claim_evidence": {
+    "claim_bleeding_overlap": {
+      "supports": [
+        "ev_aha_bleeding_2025"
+      ]
+    },
+    "claim_duplicate_ssri": {
+      "supports": [
+        "ev_apa_ssri_2025"
+      ]
+    },
+    "claim_penicillin_cross_reactivity": {
+      "supports": [
+        "ev_penicillin_class_allergy"
+      ]
+    }
+  },
+  "claim_vocabulary": {
+    "claim_bleeding_overlap": {
+      "references": [
+        "PD_EFFECT_BLEEDING"
+      ]
+    }
+  },
+  "knowledge_vocabulary": {
+    "knowledge_warfarin": {
+      "uses": [
+        "PD_EFFECT_BLEEDING"
+      ]
+    },
+    "knowledge_ibuprofen": {
+      "uses": [
+        "PD_EFFECT_BLEEDING"
+      ]
+    },
+    "knowledge_aspirin": {
+      "uses": [
+        "PD_EFFECT_BLEEDING"
+      ]
+    }
+  },
+  "rule_claim": {
+    "bleeding_risk_interaction": {
+      "supports": [
+        "claim_bleeding_overlap"
+      ]
+    },
+    "duplicate_therapy": {
+      "supports": [
+        "claim_duplicate_ssri"
+      ]
+    },
+    "allergy_contraindication": {
+      "supports": [
+        "claim_penicillin_cross_reactivity"
+      ]
+    }
+  }
+}

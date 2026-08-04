@@ -1,0 +1,41 @@
+{
+  "bactericidal": [
+    "amoxicillin"
+  ],
+  "bleeding": [
+    "aspirin"
+  ],
+  "antiplatelet": [
+    "aspirin"
+  ],
+  "gi_irritation": [
+    "aspirin",
+    "ibuprofen"
+  ],
+  "mild_sedation": [
+    "cetirizine"
+  ],
+  "serotonergic": [
+    "fluoxetine",
+    "sertraline"
+  ],
+  "long_half_life": [
+    "fluoxetine"
+  ],
+  "pd_effect_bleeding": [
+    "ibuprofen",
+    "warfarin"
+  ],
+  "renal_clearance": [
+    "ibuprofen"
+  ],
+  "hepatic_metabolism": [
+    "paracetamol"
+  ],
+  "narrow_therapeutic_index": [
+    "warfarin"
+  ],
+  "high_risk": [
+    "warfarin"
+  ]
+}

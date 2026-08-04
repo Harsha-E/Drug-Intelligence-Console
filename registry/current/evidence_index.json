@@ -1,0 +1,26 @@
+{
+  "ev_aha_bleeding_2025": {
+    "evidence_id": "ev_aha_bleeding_2025",
+    "source_type": "guideline",
+    "title": "AHA/ACC Anticoagulation and Bleeding Risk Guidelines (2025)",
+    "publisher": "American Heart Association",
+    "url": "https://example.com/aha-guidelines-2025",
+    "review_date": "2026-08-01"
+  },
+  "ev_apa_ssri_2025": {
+    "evidence_id": "ev_apa_ssri_2025",
+    "source_type": "guideline",
+    "title": "APA Clinical Practice Guideline for the Treatment of Depression (2025)",
+    "publisher": "American Psychiatric Association",
+    "url": "https://example.com/apa-guidelines-2025",
+    "review_date": "2026-08-01"
+  },
+  "ev_penicillin_class_allergy": {
+    "evidence_id": "ev_penicillin_class_allergy",
+    "source_type": "label",
+    "title": "FDA Prescribing Information - Penicillin Class Cross-Reactivity",
+    "publisher": "FDA",
+    "url": "https://example.com/fda-penicillin-label",
+    "review_date": "2026-08-01"
+  }
+}
