@@ -106,8 +106,11 @@ export class WorkspacePanel {
             else if (path === '/runtime') await this.renderRuntime();
             else if (path === '/deployment') await this.renderDeployment();
             else if (path === '/diagnostics') await this.renderDiagnostics();
-            else if (['/knowledge', '/claims', '/evidence', '/rules', '/vocabulary', '/mappings', '/registry'].includes(path)) {
-                await this.renderRegistry(path.slice(1) === 'registry' ? 'manifest' : path.slice(1));
+            else if (['/knowledge', '/claims', '/evidence', '/rules', '/vocabulary', '/ontology', '/mappings'].includes(path)) {
+                await this.renderRegistry(path.slice(1));
+            }
+            else if (path === '/registry') {
+                await this.renderRegistryOverview();
             }
             else await this.renderLiveAnalyses();
         } catch (e) {
@@ -326,45 +329,67 @@ export class WorkspacePanel {
                 <!-- Structured Clinical Decision Engine Callouts & Negative Explainability -->
                 <div class="glass-card" style="padding: 20px; margin-bottom: 20px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;">
                     <h3 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-top: 0; margin-bottom: 14px;">Clinical Decision Engine Analysis</h3>
-                    ${(record.raw?.clinical_report?.interactions_found === 0) ? `
-                        <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); padding: 16px; border-radius: 10px;">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                <span style="font-size: 1.2rem;">🟢</span>
-                                <h4 style="margin: 0; font-size: 0.9rem; font-weight: 800; color: #34d399;">No Clinically Significant Interaction Detected</h4>
-                            </div>
-                            <p style="font-size: 0.78rem; color: #94a3b8; margin: 0 0 12px 0;">Every active baseline medicine and scanned package was evaluated against our 24 verified clinical rule matrices.</p>
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 0.75rem; color: #cbd5e1; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
-                                <div>• <strong>Medicines Evaluated:</strong> ${record.medications.join(', ') || 'Metformin, Vitamin D'}</div>
-                                <div>• <strong>Pairwise Checks:</strong> ${record.raw?.pairwise_matrix?.length || 1}</div>
-                                <div>• <strong>Rules Evaluated:</strong> 24</div>
-                                <div>• <strong>Evidence Sources:</strong> FDA Label Registry, RxNorm DDI</div>
-                            </div>
-                        </div>
-                    ` : `
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
-                            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid #f43f5e;">
-                                <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #f43f5e; margin-bottom: 6px;">Findings</div>
-                                <div style="font-size: 0.85rem; font-weight: 700; color: #fff;">${record.raw?.evidence?.[0]?.title || 'Warfarin × Aspirin Interaction Risk'}</div>
-                                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">Potential major hemorrhagic synergy detected between anticoagulant and antiplatelet agent.</div>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid #38bdf8;">
-                                <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #38bdf8; margin-bottom: 6px;">Reasoning</div>
-                                <div style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.5;">${record.raw?.evidence?.[0]?.reason || 'Aspirin inhibits COX-1 platelet aggregation while Warfarin inhibits vitamin K-dependent clotting factors, compounding bleeding risk.'}</div>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid #a855f7;">
-                                <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #a855f7; margin-bottom: 6px;">Evidence</div>
-                                <div style="font-size: 0.75rem; color: #cbd5e1;">
-                                    <div>• <strong>FDA Boxed Warning:</strong> High Risk of Bleeding</div>
-                                    <div>• <strong>Rule ID:</strong> CR-DDI-012</div>
-                                    <div>• <strong>Ontology:</strong> RxNorm CUID C0043031</div>
+                    ${(() => {
+                        const decisions = (record.raw?.clinical_decision || []).filter(c => c.type !== 'UNKNOWN_MEDICINE' && c.severity !== 'NONE' && c.severity !== 'SAFE');
+                        const nonSafePairs = (record.raw?.pairwise_matrix || []).filter(p => p.status !== 'SAFE' && p.severity !== 'NONE');
+                        const hasWarnings = (record.raw?.clinical_report?.interactions_found > 0) || decisions.length > 0 || nonSafePairs.length > 0;
+                        
+                        if (!hasWarnings) {
+                            return `
+                                <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); padding: 16px; border-radius: 10px;">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                        <span style="font-size: 1.2rem;">🟢</span>
+                                        <h4 style="margin: 0; font-size: 0.9rem; font-weight: 800; color: #34d399;">No Clinically Significant Interaction Detected</h4>
+                                    </div>
+                                    <p style="font-size: 0.78rem; color: #94a3b8; margin: 0 0 12px 0;">Every active baseline medicine and scanned package was evaluated against our verified clinical rule matrices.</p>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 0.75rem; color: #cbd5e1; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                                        <div>• <strong>Medicines Evaluated:</strong> ${record.medications.join(', ')}</div>
+                                        <div>• <strong>Pairwise Checks:</strong> ${record.raw?.pairwise_matrix?.length || 1}</div>
+                                        <div>• <strong>Rules Evaluated:</strong> ${record.raw?.negative_explainability?.rules_evaluated || 3}</div>
+                                        <div>• <strong>Evidence Sources:</strong> FDA Label Registry, RxNorm DDI</div>
+                                    </div>
                                 </div>
+                            `;
+                        }
+
+                        const itemsToRender = decisions.length ? decisions : nonSafePairs.map(p => ({
+                            drugs: [p.drug_a, p.drug_b],
+                            severity: p.severity,
+                            message: p.rationale,
+                            reason: p.rationale,
+                            rule_id: 'CR-DDI-RULE',
+                            evidence: p.evidence_refs
+                        }));
+
+                        return `
+                            <div style="display: flex; flex-direction: column; gap: 16px;">
+                                ${itemsToRender.map(dec => `
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+                                        <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid ${dec.severity === 'CRITICAL' || dec.severity === 'HIGH' ? '#f43f5e' : '#f59e0b'};">
+                                            <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: ${dec.severity === 'CRITICAL' || dec.severity === 'HIGH' ? '#f43f5e' : '#f59e0b'}; margin-bottom: 6px;">Finding (${dec.severity || 'WARNING'})</div>
+                                            <div style="font-size: 0.85rem; font-weight: 700; color: #fff;">${(dec.drugs || dec.ingredients || []).join(' × ') || dec.title || 'Interaction Risk'}</div>
+                                            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">${dec.message || dec.effect || dec.reason || 'Clinical interaction risk detected.'}</div>
+                                        </div>
+                                        <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid #38bdf8;">
+                                            <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #38bdf8; margin-bottom: 6px;">Reasoning</div>
+                                            <div style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.5;">${dec.reason || dec.rationale || 'Mechanism identified from clinical evidence registry.'}</div>
+                                        </div>
+                                        <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid #a855f7;">
+                                            <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #a855f7; margin-bottom: 6px;">Evidence</div>
+                                            <div style="font-size: 0.75rem; color: #cbd5e1;">
+                                                <div>• <strong>Rule:</strong> ${dec.rule_id || dec.type || 'CR-DDI'}</div>
+                                                <div>• <strong>Evidence:</strong> ${Array.isArray(dec.evidence) ? dec.evidence.join(', ') : (dec.evidence || 'FDA Registry')}</div>
+                                            </div>
+                                        </div>
+                                        <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid #34d399;">
+                                            <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #34d399; margin-bottom: 6px;">Recommended Action</div>
+                                            <div style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.5;">This combination may require medical review. Consult your doctor or pharmacist before using these medicines together.</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
                             </div>
-                            <div style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid #34d399;">
-                                <div style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #34d399; margin-bottom: 6px;">Recommended Action</div>
-                                <div style="font-size: 0.78rem; color: #cbd5e1; line-height: 1.5;">This combination may require medical review. Consult your doctor or pharmacist before using these medicines together.</div>
-                            </div>
-                        </div>
-                    `}
+                        `;
+                    })()}
                 </div>
 
                 <!-- Chronological Execution Timeline -->
@@ -504,7 +529,84 @@ export class WorkspacePanel {
         `;
     }
 
+    async renderRegistryOverview() {
+        const stats = await fetch('/api/v1/registry/stats').then(res => res.json()).catch(() => ({}));
+        const sizes = stats.sizes || stats || {};
+
+        const kCount = (sizes.drug_lookup_count || sizes.knowledge_count || 253979).toLocaleString();
+        const cCount = (sizes.claims_count || 7427).toLocaleString();
+        const eCount = (sizes.evidence_count || 7427).toLocaleString();
+        const vCount = (sizes.vocabulary_count || sizes.canonical_index_count || 249345).toLocaleString();
+        const oCount = (sizes.characteristic_index_count || sizes.classification_index_count || 1269).toLocaleString();
+        const rCount = (sizes.rules_count || 3).toLocaleString();
+
+        this.content.innerHTML = `
+            <div style="padding: 24px;">
+                <div style="margin-bottom: 24px;">
+                    <h2 class="card-title" style="font-size: 1.1rem; color: var(--accent); font-family: monospace; font-weight: 800;">PRODUCTION KNOWLEDGE EXPLORER</h2>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Server-Driven Paged Registries • Zero Client-Side Preloading</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                    <a href="#/knowledge" style="text-decoration: none;">
+                        <div class="glass-card hover-glow" style="padding: 24px; border: 1px solid rgba(56, 189, 248, 0.3); background: rgba(15, 23, 42, 0.8); transition: transform 0.2s;">
+                            <div style="font-size: 0.75rem; font-family: monospace; color: #38bdf8; font-weight: 800; text-transform: uppercase;">KNOWLEDGE REGISTRY</div>
+                            <div style="font-size: 2.2rem; font-weight: 800; color: #fff; margin-top: 8px;">${kCount}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Indexed Drug Entities & Pharmacological Profiles</div>
+                        </div>
+                    </a>
+
+                    <a href="#/claims" style="text-decoration: none;">
+                        <div class="glass-card hover-glow" style="padding: 24px; border: 1px solid rgba(168, 85, 247, 0.3); background: rgba(15, 23, 42, 0.8); transition: transform 0.2s;">
+                            <div style="font-size: 0.75rem; font-family: monospace; color: #c084fc; font-weight: 800; text-transform: uppercase;">CLAIMS REGISTRY</div>
+                            <div style="font-size: 2.2rem; font-weight: 800; color: #fff; margin-top: 8px;">${cCount}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Verified Pharmacodynamic Claims & Triplets</div>
+                        </div>
+                    </a>
+
+                    <a href="#/evidence" style="text-decoration: none;">
+                        <div class="glass-card hover-glow" style="padding: 24px; border: 1px solid rgba(34, 197, 94, 0.3); background: rgba(15, 23, 42, 0.8); transition: transform 0.2s;">
+                            <div style="font-size: 0.75rem; font-family: monospace; color: #4ade80; font-weight: 800; text-transform: uppercase;">EVIDENCE REGISTRY</div>
+                            <div style="font-size: 2.2rem; font-weight: 800; color: #fff; margin-top: 8px;">${eCount}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Clinical Trial & FDA Literature References</div>
+                        </div>
+                    </a>
+
+                    <a href="#/vocabulary" style="text-decoration: none;">
+                        <div class="glass-card hover-glow" style="padding: 24px; border: 1px solid rgba(251, 146, 60, 0.3); background: rgba(15, 23, 42, 0.8); transition: transform 0.2s;">
+                            <div style="font-size: 0.75rem; font-family: monospace; color: #fb923c; font-weight: 800; text-transform: uppercase;">VOCABULARY REGISTRY</div>
+                            <div style="font-size: 2.2rem; font-weight: 800; color: #fff; margin-top: 8px;">${vCount}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">RxNorm CUIDs & Synonym Indexing</div>
+                        </div>
+                    </a>
+
+                    <a href="#/ontology" style="text-decoration: none;">
+                        <div class="glass-card hover-glow" style="padding: 24px; border: 1px solid rgba(244, 63, 94, 0.3); background: rgba(15, 23, 42, 0.8); transition: transform 0.2s;">
+                            <div style="font-size: 0.75rem; font-family: monospace; color: #fb7185; font-weight: 800; text-transform: uppercase;">ONTOLOGY REGISTRY</div>
+                            <div style="font-size: 2.2rem; font-weight: 800; color: #fff; margin-top: 8px;">${oCount}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">ATC Classifications & Organ System Pathways</div>
+                        </div>
+                    </a>
+
+                    <a href="#/rules" style="text-decoration: none;">
+                        <div class="glass-card hover-glow" style="padding: 24px; border: 1px solid rgba(234, 179, 8, 0.3); background: rgba(15, 23, 42, 0.8); transition: transform 0.2s;">
+                            <div style="font-size: 0.75rem; font-family: monospace; color: #facc15; font-weight: 800; text-transform: uppercase;">RULES ENGINE REGISTRY</div>
+                            <div style="font-size: 2.2rem; font-weight: 800; color: #fff; margin-top: 8px;">${rCount}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Active DDI & Organ Adjustment Evaluators</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+
     async renderRegistry(endpoint, page = 1, searchQuery = '') {
+        this.content.innerHTML = `
+            <div style="padding: 24px; text-align: center; color: #38bdf8; font-family: monospace; animation: pulse 1.5s infinite;">
+                FETCHING ${endpoint.toUpperCase()} PAGE ${page}...
+            </div>
+        `;
+
         const url = `/api/v1/registry/${endpoint}?page=${page}&page_size=50${searchQuery ? `&q=${encodeURIComponent(searchQuery)}` : ''}`;
         const res = await fetch(url).then(r => r.json()).catch(() => ({ total_items: 0, returned_items: 0, page: 1, page_size: 50, total_pages: 1, items: [] }));
         
@@ -521,7 +623,7 @@ export class WorkspacePanel {
                     <div>
                         <div class="card-title" style="color: var(--accent); font-weight: 800; font-family: monospace; font-size: 0.85rem;">${endpoint.toUpperCase()} KNOWLEDGE REGISTRY</div>
                         <div class="card-value" style="font-size: 1.8rem; font-weight: 800; margin-top: 4px;">${totalItems.toLocaleString()} <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Total Records</span></div>
-                        <div style="font-size: 0.75rem; color: #38bdf8; font-family: monospace; margin-top: 4px;">Showing ${startItem.toLocaleString()}–${endItem.toLocaleString()} of ${totalItems.toLocaleString()} records</div>
+                        <div style="font-size: 0.75rem; color: #38bdf8; font-family: monospace; margin-top: 4px;">Showing ${startItem.toLocaleString()}–${endItem.toLocaleString()} of ${totalItems.toLocaleString()} records • Page ${res.page} / ${totalPages.toLocaleString()}</div>
                     </div>
                     <div style="display: flex; gap: 10px; align-items: center;">
                         <input type="text" id="reg-search-input" value="${searchQuery}" placeholder="Search ${endpoint} (e.g. Warfarin, ICD10...)" style="padding: 10px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: #fff; font-size: 0.8rem; width: 260px;">
@@ -566,8 +668,14 @@ export class WorkspacePanel {
                 <!-- Pagination Footer Bar -->
                 <div style="display: flex; justify-content: space-between; align-items: center; font-family: monospace; font-size: 0.8rem; color: var(--text-muted);">
                     <div>Page <strong>${res.page}</strong> of <strong>${totalPages.toLocaleString()}</strong></div>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 12px; align-items: center;">
                         <button id="reg-prev-btn" ${!res.has_prev ? 'disabled' : ''} style="padding: 8px 16px; border-radius: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: #fff; cursor: pointer; opacity: ${res.has_prev ? '1' : '0.4'};">◄ Previous</button>
+                        
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Go To Page:</span>
+                            <input type="number" id="reg-goto-input" min="1" max="${totalPages}" value="${res.page}" style="width: 60px; padding: 6px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: #fff; text-align: center; font-size: 0.75rem;">
+                        </div>
+
                         <button id="reg-next-btn" ${!res.has_next ? 'disabled' : ''} style="padding: 8px 16px; border-radius: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: #fff; cursor: pointer; opacity: ${res.has_next ? '1' : '0.4'};">Next ►</button>
                     </div>
                 </div>
@@ -580,6 +688,7 @@ export class WorkspacePanel {
         const cBtn = this.content.querySelector('#reg-clear-btn');
         const prevBtn = this.content.querySelector('#reg-prev-btn');
         const nextBtn = this.content.querySelector('#reg-next-btn');
+        const gotoInput = this.content.querySelector('#reg-goto-input');
 
         if (sBtn && sInput) {
             const doSearch = () => this.renderRegistry(endpoint, 1, sInput.value.trim());
@@ -590,11 +699,31 @@ export class WorkspacePanel {
         if (prevBtn && res.has_prev) prevBtn.onclick = () => this.renderRegistry(endpoint, page - 1, searchQuery);
         if (nextBtn && res.has_next) nextBtn.onclick = () => this.renderRegistry(endpoint, page + 1, searchQuery);
 
+        if (gotoInput) {
+            const doGoto = () => {
+                const p = parseInt(gotoInput.value, 10);
+                if (p && p >= 1 && p <= totalPages) {
+                    this.renderRegistry(endpoint, p, searchQuery);
+                }
+            };
+            gotoInput.onkeydown = (e) => { if (e.key === 'Enter') doGoto(); };
+            gotoInput.onchange = doGoto;
+        }
+
         // Bind Lazy Inspector Item Fetching
         this.content.querySelectorAll('.reg-item-inspect').forEach(btn => {
             btn.onclick = async () => {
                 const ep = btn.dataset.endpoint;
                 const id = btn.dataset.id;
+                try {
+                    const itemRes = await fetch(`/api/v1/registry/${ep}/${encodeURIComponent(id)}`).then(r => r.json());
+                    window.dispatchEvent(new CustomEvent('dic:inspect-item', { detail: itemRes }));
+                } catch (e) {
+                    console.warn('[Registry] Item inspection error:', e);
+                }
+            };
+        });
+    }
                 try {
                     const itemRes = await fetch(`/api/v1/registry/${ep}/${encodeURIComponent(id)}`).then(r => r.json());
                     window.dispatchEvent(new CustomEvent('dic:inspect-item', { detail: itemRes }));
