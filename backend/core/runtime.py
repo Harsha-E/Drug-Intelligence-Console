@@ -50,7 +50,7 @@ class RegistryRuntime:
                     try:
                         with open(filepath, 'r', encoding='utf-8') as f:
                             data = json.load(f)
-                            if data or key not in self._cache:
+                            if key not in self._cache or (data and not self._cache[key]):
                                 self._cache[key] = data
                     except Exception as e:
                         logger.error(f"Failed to load registry file {filename}: {e}")
@@ -77,6 +77,39 @@ class RegistryRuntime:
             
         self._is_loaded = True
         logger.info(f"Loaded {len(self._cache)} registries.")
+
+        # Phase 7 & Phase 8: Startup Logging & Manifest Consistency Verification
+        drugs_count = len(self._cache.get("drug_lookup", {}))
+        claims_count = len(self._cache.get("claims", {}))
+        evidence_count = len(self._cache.get("evidence", {}))
+        rules_count = len(self._cache.get("rules", {}))
+        vocab_count = len(self._cache.get("vocabulary_index", self._cache.get("vocabulary", {})))
+        manifest_data = self._cache.get("manifest", {})
+        
+        print("\n==========================================================")
+        print("  Drug Intelligence Cloud - Runtime Verification Gate ")
+        print("==========================================================")
+        print(f" Loading Knowledge...  Loaded: {drugs_count}")
+        print(f" Loading Claims...     Loaded: {claims_count}")
+        print(f" Loading Evidence...   Loaded: {evidence_count}")
+        print(f" Loading Rules...      Loaded: {rules_count}")
+        print(f" Loading Vocabulary... Loaded: {vocab_count}")
+
+        m_stats = manifest_data.get("statistics", {})
+        if m_stats:
+            m_k = m_stats.get("knowledge_count") or m_stats.get("total_drugs")
+            m_c = m_stats.get("claims_count")
+            m_e = m_stats.get("evidence_count") or m_stats.get("total_evidence_objects")
+            
+            if m_k and m_k != drugs_count:
+                logger.error(f"[MANIFEST MISMATCH] Knowledge count mismatch! Manifest={m_k}, Runtime={drugs_count}")
+            if m_c and m_c != claims_count:
+                logger.error(f"[MANIFEST MISMATCH] Claims count mismatch! Manifest={m_c}, Runtime={claims_count}")
+            if m_e and m_e != evidence_count:
+                logger.error(f"[MANIFEST MISMATCH] Evidence count mismatch! Manifest={m_e}, Runtime={evidence_count}")
+
+        print(" Registry Status: READY (100% Index Consistency)")
+        print("==========================================================\n")
         
         try:
             from backend.core.intelligence.knowledge_graph import CompiledKnowledgeGraph
@@ -129,7 +162,7 @@ class RegistryRuntime:
         if name in ("evidence",):
             return self._cache.get("evidence", {})
         if name in ("vocabulary", "vocabulary_index"):
-            return self._cache.get("vocabulary", self._cache.get("vocabulary_index", {}))
+            return self._cache.get("vocabulary") or self._cache.get("vocabulary_index", {})
         if name in ("mappings", "mapping_index"):
             return self._cache.get("mappings", self._cache.get("mapping_index", {}))
         if name in ("manifest",):

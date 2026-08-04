@@ -1,4 +1,5 @@
 import os
+import json
 import uuid
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -450,11 +451,16 @@ def delete_analysis(id: str):
         raise HTTPException(status_code=404, detail="Analysis not found")
     return {"status": "deleted", "id": id}
 
+import math
+from typing import Optional
+from fastapi import Query
+
 @app.get("/api/v1/registry/stats")
 def get_registry_stats():
     sizes = runtime.get_registry_sizes()
     hashes = runtime.get_registry_hashes()
-    return {"sizes": sizes, "hashes": hashes, **sizes, **hashes}
+    manifest_data = runtime.get_registry("manifest")
+    return {"sizes": sizes, "hashes": hashes, "manifest": manifest_data, **sizes, **hashes}
 
 @app.post("/api/v1/registry/sync")
 def sync_registry():
@@ -462,11 +468,81 @@ def sync_registry():
     return {"status": "success", "stats": stats}
 
 @app.get("/api/v1/registry/{resource}")
-def get_registry(resource: str):
-    data = runtime.get_registry(resource)
-    if data is None:
-        raise HTTPException(status_code=404, detail="Registry resource not found")
-    return data
+def get_registry(
+    resource: str,
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=500),
+    q: Optional[str] = Query(None)
+):
+    raw_data = runtime.get_registry(resource)
+    if raw_data is None or (not raw_data and resource not in ("manifest", "rules", "knowledge", "claims", "evidence", "vocabulary", "drugs")):
+        raise HTTPException(status_code=404, detail=f"Registry resource '{resource}' not found")
+
+    if isinstance(raw_data, dict):
+        items_list = []
+        for k, v in raw_data.items():
+            if isinstance(v, dict):
+                item = dict(v)
+                item["_id"] = k
+                items_list.append(item)
+            else:
+                items_list.append({"_id": k, "value": v})
+    elif isinstance(raw_data, list):
+        items_list = list(raw_data)
+    else:
+        items_list = [{"value": raw_data}]
+
+    if q and q.strip():
+        query_str = q.strip().lower()
+        filtered = []
+        for item in items_list:
+            item_str = json.dumps(item).lower()
+            if query_str in item_str:
+                filtered.append(item)
+        items_list = filtered
+
+    total_items = len(items_list)
+    total_pages = math.ceil(total_items / page_size) if total_items > 0 else 1
+    
+    start_idx = (page - 1) * page_size
+    end_idx = start_idx + page_size
+    paginated_items = items_list[start_idx:end_idx]
+
+    return {
+        "resource": resource,
+        "total_items": total_items,
+        "returned_items": len(paginated_items),
+        "page": page,
+        "page_size": page_size,
+        "total_pages": total_pages,
+        "has_next": page < total_pages,
+        "has_prev": page > 1,
+        "items": paginated_items
+    }
+
+@app.get("/api/v1/registry/{resource}/{item_id}")
+def get_registry_item(resource: str, item_id: str):
+    raw_data = runtime.get_registry(resource)
+    if not raw_data:
+        raise HTTPException(status_code=404, detail=f"Registry '{resource}' not found")
+    
+    if isinstance(raw_data, dict):
+        if item_id in raw_data:
+            return {"resource": resource, "id": item_id, "data": raw_data[item_id]}
+        for k, v in raw_data.items():
+            if k.lower() == item_id.lower():
+                return {"resource": resource, "id": k, "data": v}
+            if isinstance(v, dict):
+                if v.get("drug_id") == item_id or v.get("claim_id") == item_id or v.get("evidence_id") == item_id or v.get("term_id") == item_id:
+                    return {"resource": resource, "id": k, "data": v}
+                if v.get("identity", {}).get("canonical_name", "").lower() == item_id.lower():
+                    return {"resource": resource, "id": k, "data": v}
+    elif isinstance(raw_data, list):
+        for item in raw_data:
+            if isinstance(item, dict) and (item.get("id") == item_id or item.get("rule_id") == item_id or item.get("rule") == item_id):
+                return {"resource": resource, "id": item_id, "data": item}
+
+    raise HTTPException(status_code=404, detail=f"Item '{item_id}' not found in registry '{resource}'")
 
 if os.path.exists(frontend_dir):
     app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")

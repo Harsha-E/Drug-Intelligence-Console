@@ -504,23 +504,105 @@ export class WorkspacePanel {
         `;
     }
 
-    async renderRegistry(endpoint) {
-        const data = await fetch(`/api/v1/registry/${endpoint}`).then(res => res.json()).catch(() => ({}));
-        const keys = Object.keys(data);
+    async renderRegistry(endpoint, page = 1, searchQuery = '') {
+        const url = `/api/v1/registry/${endpoint}?page=${page}&page_size=50${searchQuery ? `&q=${encodeURIComponent(searchQuery)}` : ''}`;
+        const res = await fetch(url).then(r => r.json()).catch(() => ({ total_items: 0, returned_items: 0, page: 1, page_size: 50, total_pages: 1, items: [] }));
         
+        const totalItems = res.total_items || 0;
+        const totalPages = res.total_pages || 1;
+        const items = res.items || [];
+        const startItem = totalItems > 0 ? (res.page - 1) * res.page_size + 1 : 0;
+        const endItem = Math.min(startItem + items.length - 1, totalItems);
+
         this.content.innerHTML = `
             <div style="padding: 20px;">
-                <div class="glass-card" style="margin-bottom: 20px;">
-                    <div class="card-title">${endpoint.toUpperCase()} REGISTRY INDEX</div>
-                    <div class="card-value">${keys.length} Items Indexed</div>
+                <!-- Header Stats Card -->
+                <div class="glass-card" style="margin-bottom: 20px; padding: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.8);">
+                    <div>
+                        <div class="card-title" style="color: var(--accent); font-weight: 800; font-family: monospace; font-size: 0.85rem;">${endpoint.toUpperCase()} KNOWLEDGE REGISTRY</div>
+                        <div class="card-value" style="font-size: 1.8rem; font-weight: 800; margin-top: 4px;">${totalItems.toLocaleString()} <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Total Records</span></div>
+                        <div style="font-size: 0.75rem; color: #38bdf8; font-family: monospace; margin-top: 4px;">Showing ${startItem.toLocaleString()}–${endItem.toLocaleString()} of ${totalItems.toLocaleString()} records</div>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="reg-search-input" value="${searchQuery}" placeholder="Search ${endpoint} (e.g. Warfarin, ICD10...)" style="padding: 10px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4); color: #fff; font-size: 0.8rem; width: 260px;">
+                        <button id="reg-search-btn" style="padding: 10px 16px; border-radius: 8px; background: var(--accent); color: #000; font-weight: 800; border: none; cursor: pointer; font-size: 0.75rem;">Search</button>
+                        ${searchQuery ? `<button id="reg-clear-btn" style="padding: 10px 12px; border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; border: none; cursor: pointer; font-size: 0.75rem;">Clear</button>` : ''}
+                    </div>
                 </div>
-                <div class="glass-card" style="padding: 16px;">
-                    <div class="json-viewer" style="max-height: 450px; overflow-y: auto;">
-                        <pre style="margin: 0; font-family: monospace; font-size: 0.8rem; color: var(--text-primary);">${JSON.stringify(data, null, 2).slice(0, 5000)}</pre>
+
+                <!-- Paginated Items Table -->
+                <div class="glass-card" style="padding: 16px; margin-bottom: 20px;">
+                    <div style="overflow-x: auto; max-height: 520px;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; color: var(--text-muted); font-family: monospace; font-size: 0.7rem;">
+                                    <th style="padding: 10px;">ID / KEY</th>
+                                    <th style="padding: 10px;">NAME / SUMMARY</th>
+                                    <th style="padding: 10px;">DETAILS / CLASSIFICATION</th>
+                                    <th style="padding: 10px; text-align: right;">ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${items.length ? items.map((item, idx) => {
+                                    const id = item._id || item.drug_id || item.claim_id || item.evidence_id || item.term_id || item.rule_id || `item_${idx}`;
+                                    const name = item.identity?.canonical_name || item.name || item.term || item.subject || item.rule || id;
+                                    const details = item.clinical_knowledge?.classifications?.join(', ') || item.effect || item.predicate || item.description || item.source || 'Verified';
+                                    return `
+                                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.2s;" onmouseover="this.style.background='rgba(56,189,248,0.08)'" onmouseout="this.style.background=''">
+                                            <td style="padding: 10px; font-family: monospace; color: var(--accent); font-weight: 700;">${id}</td>
+                                            <td style="padding: 10px; font-weight: 700; color: #fff;">${name}</td>
+                                            <td style="padding: 10px; color: var(--text-muted); max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${details}</td>
+                                            <td style="padding: 10px; text-align: right;">
+                                                <button class="reg-item-inspect" data-endpoint="${endpoint}" data-id="${id}" style="padding: 4px 10px; border-radius: 6px; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); color: #38bdf8; font-size: 0.7rem; font-weight: 700; cursor: pointer;">Inspect</button>
+                                            </td>
+                                        </tr>
+                                    `;
+                                }).join('') : `<tr><td colspan="4" style="padding: 24px; text-align: center; color: var(--text-muted);">No records found in ${endpoint} registry.</td></tr>`}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pagination Footer Bar -->
+                <div style="display: flex; justify-content: space-between; align-items: center; font-family: monospace; font-size: 0.8rem; color: var(--text-muted);">
+                    <div>Page <strong>${res.page}</strong> of <strong>${totalPages.toLocaleString()}</strong></div>
+                    <div style="display: flex; gap: 8px;">
+                        <button id="reg-prev-btn" ${!res.has_prev ? 'disabled' : ''} style="padding: 8px 16px; border-radius: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: #fff; cursor: pointer; opacity: ${res.has_prev ? '1' : '0.4'};">◄ Previous</button>
+                        <button id="reg-next-btn" ${!res.has_next ? 'disabled' : ''} style="padding: 8px 16px; border-radius: 6px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); color: #fff; cursor: pointer; opacity: ${res.has_next ? '1' : '0.4'};">Next ►</button>
                     </div>
                 </div>
             </div>
         `;
+
+        // Bind Search & Pagination Controls
+        const sInput = this.content.querySelector('#reg-search-input');
+        const sBtn = this.content.querySelector('#reg-search-btn');
+        const cBtn = this.content.querySelector('#reg-clear-btn');
+        const prevBtn = this.content.querySelector('#reg-prev-btn');
+        const nextBtn = this.content.querySelector('#reg-next-btn');
+
+        if (sBtn && sInput) {
+            const doSearch = () => this.renderRegistry(endpoint, 1, sInput.value.trim());
+            sBtn.onclick = doSearch;
+            sInput.onkeydown = (e) => { if (e.key === 'Enter') doSearch(); };
+        }
+        if (cBtn) cBtn.onclick = () => this.renderRegistry(endpoint, 1, '');
+        if (prevBtn && res.has_prev) prevBtn.onclick = () => this.renderRegistry(endpoint, page - 1, searchQuery);
+        if (nextBtn && res.has_next) nextBtn.onclick = () => this.renderRegistry(endpoint, page + 1, searchQuery);
+
+        // Bind Lazy Inspector Item Fetching
+        this.content.querySelectorAll('.reg-item-inspect').forEach(btn => {
+            btn.onclick = async () => {
+                const ep = btn.dataset.endpoint;
+                const id = btn.dataset.id;
+                try {
+                    const itemRes = await fetch(`/api/v1/registry/${ep}/${encodeURIComponent(id)}`).then(r => r.json());
+                    window.dispatchEvent(new CustomEvent('dic:inspect-item', { detail: itemRes }));
+                } catch (e) {
+                    console.warn('[Registry] Item inspection error:', e);
+                }
+            };
+        });
     }
 
     async renderMetrics() {

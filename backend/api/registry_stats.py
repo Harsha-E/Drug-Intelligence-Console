@@ -62,7 +62,12 @@ def get_registry_stats():
             
     t1 = time.time()
     
+    manifest_data = runtime.get_registry("manifest")
+    rules_data = runtime.get_registry("rules")
+    vocab_data = runtime.get_registry("vocabulary")
+    
     return {
+        "manifest": manifest_data,
         "metrics": {
             "medicines": len(drugs),
             "ingredients": len(ingredients),
@@ -74,12 +79,11 @@ def get_registry_stats():
             "mechanisms": len(mechanisms),
             "claims": len(claims),
             "evidence": len(evidence),
-            "rules": 3,  # We have 3 generic rules: Direct, Overlapping PD, PK Inhibition
+            "rules": len(rules_data),
+            "vocabulary": len(vocab_data),
             "inferred_interactions": inferred_interactions,
             "curated_interactions": curated_interactions,
             "registry_size_bytes": total_size,
-            "compile_time_ms": 3.24, # hardcoded from last compile run for metrics
-            "average_reasoning_latency_ms": 1.5,
             "stats_generation_latency_ms": round((t1 - t0) * 1000, 2)
         }
     }

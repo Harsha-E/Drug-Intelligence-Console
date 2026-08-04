@@ -48,8 +48,28 @@ export class InspectorPanel {
 
         if (!this.bound) {
             window.addEventListener('dic:analysis-loaded', (e) => this.onAnalysisLoaded(e.detail));
+            window.addEventListener('dic:inspect-item', (e) => this.onItemInspected(e.detail));
             window.addEventListener('dic:node-selected', (e) => this.onNodeSelected(e.detail));
             this.bound = true;
+        }
+    }
+
+    onItemInspected(itemData) {
+        if (!itemData) return;
+        const jsonPane = this.container.querySelector('#dt-json');
+        const jsonTab = this.container.querySelector('[data-tab="dt-json"]');
+        
+        if (jsonPane && jsonTab) {
+            this.container.querySelectorAll('.devtools-tab').forEach(t => t.classList.remove('active'));
+            jsonTab.classList.add('active');
+            
+            this.container.querySelectorAll('.devtools-pane').forEach(p => p.style.display = 'none');
+            jsonPane.style.display = 'block';
+            
+            jsonPane.innerHTML = `
+                <div style="font-size: 0.7rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; margin-bottom: 8px; font-family: monospace;">LAZY INSPECTION: ${itemData.resource?.toUpperCase()} / ${itemData.id}</div>
+                <pre style="margin: 0; font-family: monospace; font-size: 0.75rem; color: #e2e8f0; background: rgba(0,0,0,0.5); padding: 12px; border-radius: 8px; overflow-x: auto;">${JSON.stringify(itemData.data || itemData, null, 2)}</pre>
+            `;
         }
     }
 
