@@ -16,7 +16,7 @@ class ExecutionStore:
         # Hydrate memory cache from disk
         if self.log_file.exists():
             with open(self.log_file, 'r', encoding='utf-8') as f:
-                for line in f:
+                for line in (f.readlines()[-100:]):
                     if line.strip():
                         try:
                             self._memory_cache.append(json.loads(line))
