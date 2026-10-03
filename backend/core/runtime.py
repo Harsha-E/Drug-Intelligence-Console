@@ -145,7 +145,7 @@ class RegistryRuntime:
                                     "graph": record.get("graph", {}),
                                     "clinical_decision": record.get("clinical_decision", record.get("report", {}).get("alerts", []))
                                 }
-                                self.history.append(hist_item)
+                                self.history = [h for h in self.history if h.get("analysis_id") != exec_id and h.get("id") != exec_id]; self.history.append(hist_item)
                         except Exception:
                             continue
                 logger.info(f"Loaded {len(self.history)} historical executions from disk.")
@@ -208,6 +208,9 @@ class RegistryRuntime:
 
     def add_history(self, record: Dict[str, Any]):
         with self._lock:
+            aid = record.get("analysis_id") or record.get("id")
+            if aid:
+                self.history = [h for h in self.history if h.get("analysis_id") != aid and h.get("id") != aid]
             if len(self.history) >= self.max_capacity:
                 self.history.pop(0)
             self.history.append(record)
